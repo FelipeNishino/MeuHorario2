@@ -22,6 +22,7 @@ class AulaCell : UICollectionViewCell {
         label.text = "Custom Text"
         label.font = .systemFont(ofSize: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -30,6 +31,7 @@ class AulaCell : UICollectionViewCell {
         label.text = "Thyago Quintas"
         label.font = .systemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -38,6 +40,7 @@ class AulaCell : UICollectionViewCell {
         label.text = "00:00"
         label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -46,6 +49,7 @@ class AulaCell : UICollectionViewCell {
         label.text = "00:00"
         label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -54,6 +58,7 @@ class AulaCell : UICollectionViewCell {
         separator.widthAnchor.constraint(equalToConstant: 1).isActive = true
         separator.backgroundColor = .black
         separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.isAccessibilityElement = false
         return separator
     }()
     
@@ -66,6 +71,7 @@ class AulaCell : UICollectionViewCell {
         addSubview(vr)
         
         self.accessibilityLabel = "teste"
+        self.isAccessibilityElement = true
 //        addSubview(<vr>)
         
 //        separator.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.4).isActive = true
