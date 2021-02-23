@@ -27,6 +27,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let myCollectionView:UICollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
+        myCollectionView.accessibilityTraits = .adjustable
         myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
         myCollectionView.register(AulaCell.self, forCellWithReuseIdentifier: "AulaCell")
         myCollectionView.backgroundColor = UIColor.white
@@ -52,7 +53,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         else {
             let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AulaCell", for: indexPath) as! AulaCell
             customCell.aulaLbl.text = aulas[indexPath.row / 5].1[mod - 1]
-            customCell.entradaLbl.accessibilityLabel = "Das 19:10 até 20:00"
+//            customCell.entradaLbl.accessibilityLabel = "Das 19:10 até 20:00"
+            self.accessibilityElements?.append(customCell)
             return customCell
         }
     }

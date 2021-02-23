@@ -20,7 +20,6 @@ class AulaCell : UICollectionViewCell {
     let aulaLbl : UILabel = {
         let label = UILabel()
         label.text = "Custom Text"
-        label.accessibilityLabel = "Custom Text"
         label.font = .systemFont(ofSize: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -29,7 +28,6 @@ class AulaCell : UICollectionViewCell {
     let professorLbl : UILabel = {
         let label = UILabel()
         label.text = "Thyago Quintas"
-        label.accessibilityLabel = "Thyago Quintas"
         label.font = .systemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -67,7 +65,7 @@ class AulaCell : UICollectionViewCell {
         addSubview(saidaLbl)
         addSubview(vr)
         
-        self.contentView.accessibilityElements = [self.aulaLbl, self.professorLbl, self.entradaLbl]
+        self.accessibilityLabel = "teste"
 //        addSubview(<vr>)
         
 //        separator.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.4).isActive = true
