@@ -8,7 +8,7 @@
 import UIKit
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private var aulas = [("Segunda", ["Algoritmos I", "Algoritmos I", "Algoritmos I", "Algoritmos I"]), ("Terça", ["Pré-Cálculo", "Pré-Cálculo", "Pré-Cálculo", "Pré-Cálculo"])]
+    private var aulas = [("Segunda", [("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati")]), ("Terça", [("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad")])]
 //    private var aulas : (String, [String])
     
     private let horizontalEdgeInsets : CGFloat = 20
@@ -27,10 +27,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let myCollectionView:UICollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
+        
         myCollectionView.accessibilityTraits = .adjustable
-        myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
+        
+        myCollectionView.register(DiaCell.self, forCellWithReuseIdentifier: "DiaCell")
         myCollectionView.register(AulaCell.self, forCellWithReuseIdentifier: "AulaCell")
-        myCollectionView.backgroundColor = UIColor.white
+        
+        myCollectionView.backgroundColor = UIColor.init(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
         self.view.addSubview(myCollectionView)
     }
     
@@ -46,14 +49,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let mod = indexPath.row % 5
         
         if mod == 0 {
-            let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath)
-            myCell.backgroundColor = UIColor.blue
+            let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "DiaCell", for: indexPath) as! DiaCell
+            
+            myCell.diaLbl.text = aulas[indexPath.row / 5].0
+            
+            myCell.accessibilityLabel = aulas[indexPath.row / 5].0
+            self.accessibilityElements?.append(myCell)
+            
             return myCell
         }
         else {
             let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AulaCell", for: indexPath) as! AulaCell
-            customCell.aulaLbl.text = aulas[indexPath.row / 5].1[mod - 1]
-//            customCell.entradaLbl.accessibilityLabel = "Das 19:10 até 20:00"
+            
+            customCell.aulaLbl.text = aulas[indexPath.row / 5].1[mod - 1].0
+            customCell.professorLbl.text = aulas[indexPath.row / 5].1[mod - 1].1
+            
             self.accessibilityElements?.append(customCell)
             return customCell
         }

@@ -56,21 +56,21 @@ class AulaCell : UICollectionViewCell {
     let vr : UIView = {
         let separator = UIView()
         separator.widthAnchor.constraint(equalToConstant: 1).isActive = true
-        separator.backgroundColor = .black
+        separator.backgroundColor = UIColor.init(red: 247/255, green: 149/255, blue: 29/255, alpha: 1)
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.isAccessibilityElement = false
         return separator
     }()
     
     func setupViews() {
-        backgroundColor = UIColor.red
+        backgroundColor = UIColor.white
         addSubview(aulaLbl)
         addSubview(professorLbl)
         addSubview(entradaLbl)
         addSubview(saidaLbl)
         addSubview(vr)
         
-        self.accessibilityLabel = "teste"
+        self.accessibilityLabel = "Aula x Professor legal"
         self.isAccessibilityElement = true
 //        addSubview(<vr>)
         
@@ -81,7 +81,7 @@ class AulaCell : UICollectionViewCell {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[vEntrada]-12-[vSaida]", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["vEntrada" : entradaLbl, "vSaida" : saidaLbl]))
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-72-[vr]", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["vr" : vr]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[vr]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["vr" : vr]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[vr]-5-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["vr" : vr]))
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-86-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : aulaLbl]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-86-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : professorLbl]))
