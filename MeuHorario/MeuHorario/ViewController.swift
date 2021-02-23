@@ -32,6 +32,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         myCollectionView.register(AulaCell.self, forCellWithReuseIdentifier: "AulaCell")
         myCollectionView.backgroundColor = UIColor.white
         self.view.addSubview(myCollectionView)
+        UserDefaults.didAlreadyLaunch = false
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
