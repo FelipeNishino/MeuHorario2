@@ -52,6 +52,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         else {
             let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AulaCell", for: indexPath) as! AulaCell
             customCell.aulaLbl.text = aulas[indexPath.row / 5].1[mod - 1]
+            customCell.entradaLbl.accessibilityLabel = "Das 19:10 até 20:00"
             return customCell
         }
     }
