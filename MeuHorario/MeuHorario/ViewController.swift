@@ -8,7 +8,7 @@
 import UIKit
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private var aulas = [("Segunda", ["Algoritmos I", "Algoritmos I", "Algoritmos I", "Algoritmos I"]), ("Terça", ["Pré-Cálculo", "Pré-Cálculo", "Pré-Cálculo", "Pré-Cálculo"])]
+    private var aulas = [("Segunda", [("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati")]), ("Terça", [("Pré-Calculo", "Aldilson Konrad"), ("Pré-Calculo", "Aldilson Konrad"), ("Pré-Calculo", "Aldilson Konrad"), ("Pré-Calculo", "Aldilson Konrad")])]
 //    private var aulas : (String, [String])
     
     private let horizontalEdgeInsets : CGFloat = 20
