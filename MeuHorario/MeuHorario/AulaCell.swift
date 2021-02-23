@@ -20,6 +20,7 @@ class AulaCell : UICollectionViewCell {
     let aulaLbl : UILabel = {
         let label = UILabel()
         label.text = "Custom Text"
+        label.textColor = UIColor.black
         label.font = .systemFont(ofSize: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isAccessibilityElement = false
@@ -29,6 +30,7 @@ class AulaCell : UICollectionViewCell {
     let professorLbl : UILabel = {
         let label = UILabel()
         label.text = "Thyago Quintas"
+        label.textColor = UIColor.black
         label.font = .systemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isAccessibilityElement = false
@@ -38,6 +40,7 @@ class AulaCell : UICollectionViewCell {
     let entradaLbl : UILabel = {
         let label = UILabel()
         label.text = "00:00"
+        label.textColor = UIColor.black
         label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isAccessibilityElement = false
@@ -47,6 +50,7 @@ class AulaCell : UICollectionViewCell {
     let saidaLbl : UILabel = {
         let label = UILabel()
         label.text = "00:00"
+        label.textColor = UIColor.black
         label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isAccessibilityElement = false
