@@ -8,8 +8,9 @@
 import UIKit
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private var aulas = [("Segunda", [("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati")]), ("Terça", [("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad")])]
-//    private var aulas : (String, [String])
+    private var aulas = [(1, [("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati"), ("Algoritmos I", "Rodrigo Assirati")]), (2, [("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad"), ("Pré-Calculo", "Adilson Konrad")])]
+    
+    private var diaDaSemana = [1 : "Segunda-Feira", 2 : "Terça-Feira", 3 : "Quarta-Feira", 4 : "Quinta-Feira", 5 : "Sexta-Feira", 6 : "Sábado"]
     
     private let horizontalEdgeInsets : CGFloat = 20
     
@@ -51,9 +52,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if mod == 0 {
             let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "DiaCell", for: indexPath) as! DiaCell
             
-            myCell.diaLbl.text = aulas[indexPath.row / 5].0
+            let date = Date()
+            print(date.dayNumberOfWeek() ?? 2)
+    
+            if date.dayNumberOfWeek()! == aulas[indexPath.row / 5].0 {
+                myCell.backgroundColor = UIColor.init(red: 0.0, green: 70/255, blue: 135/255, alpha: 1)
+                myCell.diaLbl.textColor = .white
+            }
             
-            myCell.accessibilityLabel = aulas[indexPath.row / 5].0
+            
+            myCell.diaLbl.text = diaDaSemana[aulas[indexPath.row / 5].0]
+            
+            myCell.accessibilityLabel = diaDaSemana[aulas[indexPath.row / 5].0]
             self.accessibilityElements?.append(myCell)
             
             return myCell

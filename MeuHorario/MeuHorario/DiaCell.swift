@@ -20,7 +20,7 @@ class DiaCell : UICollectionViewCell {
     let diaLbl : UILabel = {
         let label = UILabel()
         label.text = "Dia"
-        label.textColor = UIColor.white
+        label.textColor = UIColor.black
         label.font = .systemFont(ofSize: 26)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isAccessibilityElement = false
@@ -28,7 +28,8 @@ class DiaCell : UICollectionViewCell {
     }()
     
     func setupViews() {
-        backgroundColor = UIColor.init(red: 0.0, green: 70/255, blue: 135/255, alpha: 1)
+        backgroundColor = .white
+        
         addSubview(diaLbl)
         
         self.accessibilityLabel = "Dia da semana"
