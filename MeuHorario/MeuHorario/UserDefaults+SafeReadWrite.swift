@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension UserDefaults {
     private enum Keys {
         static let didAlreadyLaunch = "didAlreadyLaunch"

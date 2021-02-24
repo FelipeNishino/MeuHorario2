@@ -25,7 +25,7 @@ class WrapperViewController : UIViewController {
             present(viewController, animated: false, completion: nil)
         }
         else {
-            let viewController = CadastroViewController()
+            let viewController = RegisterViewController()
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: false, completion: nil)
         }
