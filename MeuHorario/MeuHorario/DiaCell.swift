@@ -28,7 +28,7 @@ class DiaCell : UICollectionViewCell {
     }()
     
     func setupViews() {
-        backgroundColor = .white
+        backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 1)
         
         addSubview(diaLbl)
         
