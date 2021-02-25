@@ -26,7 +26,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         label.text = "Qual o seu curso?"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 22)
-        label.textColor = UIColor(withHex: 0x004687)
+//        label.textColor = UIColor(withHex: 0x004687)
+        label.textColor = UIColor(named: "Cabecalho")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -37,7 +38,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         label.numberOfLines = 0
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 18)
-        label.textColor = UIColor(withHex: 0xc0c0c0)
+//        label.textColor = UIColor(withHex: 0xc0c0c0)
+        label.textColor = UIColor(named: "CizaTexto")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,6 +74,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+        
+        self.view.backgroundColor = UIColor(named: "Fundo")
     }
     
     @objc func setDict() {
@@ -87,6 +91,9 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         let myCell = tableView.dequeueReusableCell(withIdentifier: "MyTableCell", for: indexPath)
         myCell.textLabel!.text = indexPath.row == 0 ? "Cursos" : "Semestres"
         myCell.accessoryType = .disclosureIndicator
+        
+        myCell.backgroundColor = UIColor(named: "Fundo")
+        
         return myCell
     }
     
