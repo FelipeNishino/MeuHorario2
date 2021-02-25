@@ -10,24 +10,15 @@ import UIKit
 class WrapperViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
-        let lbl = UILabel()
-        lbl.text = "Wrapper"
-        lbl.textColor = .green
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(lbl)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if UserDefaults.didAlreadyLaunch {
-            let viewController = ViewController()
-            viewController.modalPresentationStyle = .fullScreen
-            present(viewController, animated: false, completion: nil)
-        }
-        else {
-            let viewController = RegisterViewController()
-            viewController.modalPresentationStyle = .fullScreen
-            present(viewController, animated: false, completion: nil)
-        }
+        present(createController(controllerType: UserDefaults.didAlreadyLaunch ? ViewController() : RegisterViewController()), animated: false, completion: nil)
+    }
+
+    func createController<T : UIViewController>(controllerType vc: T) -> UINavigationController {
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .fullScreen
+        return navController
     }
 }

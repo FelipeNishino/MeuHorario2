@@ -13,7 +13,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     private let myTableView = UITableView()
     
 //    let button : UIButton = {
-//        let btn = UIButton()
+//        let btn = UIButton(frame: CGRect(x: 0, y: 500, width: 400, height: 20))
 //        btn.setTitle("Set UserDefaults.didAlreadyLaunch to true", for: .normal)
 //        btn.addTarget(self, action: #selector(setDict), for: .touchUpInside)
 //        btn.translatesAutoresizingMaskIntoConstraints = false
@@ -42,17 +42,19 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         return label
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.addSubview(button)
-        view.addSubview(titleLbl)
-        view.addSubview(descLbl)
         
         myTableView.dataSource = self
         myTableView.delegate = self
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyTableCell")
+        
+        self.navigationController?.delegate = self
+        
         self.view.addSubview(myTableView)
+        view.addSubview(titleLbl)
+        view.addSubview(descLbl)
+//        view.addSubview(button)
         UserDefaults.didAlreadyLaunch = false
     }
     
@@ -68,7 +70,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-40-[v0]-40-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : descLbl]))
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     @objc func setDict() {
@@ -90,7 +93,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("puts tableview")
         let viewController = SelectViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        present(viewController, animated: false, completion: nil)
+//        viewController.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(viewController, animated: true)
+//        self.navController.pushViewController(viewController, animated: true)
     }
 }

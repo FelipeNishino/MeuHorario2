@@ -21,9 +21,13 @@ class SelectViewController : UIViewController, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.title = "asdasd"
-        
+        self.navigationController?.title = "Cursos"
+        self.navigationController?.navigationBar.isHidden = false
         view.addSubview(lbl)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UserDefaults.didAlreadyLaunch = true
     }
     
     override func viewDidLayoutSubviews() {

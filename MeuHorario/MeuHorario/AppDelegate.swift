@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         // Create a view controller
         let viewController = WrapperViewController()
+//        let nav = UINavigationController()
+//        nav.pushViewController(viewController, animated: false)
         // Assign the view controller as `window`'s root view controller
         window?.rootViewController = viewController
         // Show the window
