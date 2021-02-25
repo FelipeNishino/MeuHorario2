@@ -80,7 +80,7 @@ class AulaCell : UICollectionViewCell {
 //        addSubview(<vr>)
         
 //        separator.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.4).isActive = true
-        
+
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : entradaLbl]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : saidaLbl]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[vEntrada]-12-[vSaida]", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["vEntrada" : entradaLbl, "vSaida" : saidaLbl]))
