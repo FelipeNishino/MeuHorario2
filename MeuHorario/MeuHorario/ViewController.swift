@@ -11,7 +11,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     private var aulas = [
                         (1, [("Algoritmos I", "Rodrigo Assirati", "19h10", "20h00"), ("Algoritmos I", "Rodrigo Assirati", "20h00", "20h50"), ("Algoritmos I", "Rodrigo Assirati", "21h05", "21h55"), ("Algoritmos I", "Rodrigo Assirati", "21h55", "22h45")]),
                         (2, [("Pré-Calculo", "Adilson Konrad", "19h10", "20h00"),("Pré-Calculo", "Adilson Konrad", "20h00", "20h50"),("Introdução a Computação", "Thyago Quintas", "21h05", "21h55"),("Introdução a Computação", "Thyago Quintas", "21h55", "22h45")]),
-                        (3, [("Programação Web", "Fábio Abenza", "19h10", "20h00"),("Banco de Dados", "Thiago Claro", "20h00", "20h50"), ("Programação Web", "Fábio Abenza", "21h05", "20h55"),("Banco de Dados", "Thiago Claro", "21h55", "22h45")])
+                        (3, [("Programação Web", "Fábio Abenza", "19h10", "20h00"),("Banco de Dados", "Thiago Claro", "20h00", "20h50"), ("Programação Web", "Fábio Abenza", "21h05", "20h55"),("Banco de Dados", "Thiago Claro", "21h55", "22h45")]),
+                        (4, [("Programação Web", "Fábio Abenza", "19h10", "20h00"),("Banco de Dados", "Thiago Claro", "20h00", "20h50"), ("Programação Web", "Fábio Abenza", "21h05", "20h55"),("Banco de Dados", "Thiago Claro", "21h55", "22h45")])
                          
                         ]
     
@@ -39,7 +40,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         myCollectionView.register(DiaCell.self, forCellWithReuseIdentifier: "DiaCell")
         myCollectionView.register(AulaCell.self, forCellWithReuseIdentifier: "AulaCell")
         
-        myCollectionView.backgroundColor = UIColor.init(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
+//        myCollectionView.backgroundColor = UIColor.init(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
+        myCollectionView.backgroundColor = UIColor(named: "Fundo")
         self.view.addSubview(myCollectionView)
     }
     
@@ -59,9 +61,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             let date = Date()
     
+            ////Pinta de azul o dia atual
             if date.dayNumberOfWeek()! == aulas[indexPath.row / 5].0 {
-                myCell.backgroundColor = UIColor.init(red: 0.0, green: 70/255, blue: 135/255, alpha: 1)
-                myCell.diaLbl.textColor = .white
+//                myCell.backgroundColor = UIColor.init(red: 0.0, green: 70/255, blue: 135/255, alpha: 1)
+                myCell.backgroundColor = UIColor(named: "Cabecalho")
+                myCell.diaLbl.textColor = UIColor(named: "pb")
             }
             
             
