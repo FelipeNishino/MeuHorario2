@@ -19,6 +19,7 @@ class WrapperViewController : UIViewController {
     func createController<T : UIViewController>(controllerType vc: T) -> UINavigationController {
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .fullScreen
+        navController.navigationBar.isHidden = true
         return navController
     }
 }
