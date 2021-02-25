@@ -20,7 +20,7 @@ class DiaCell : UICollectionViewCell {
     let diaLbl : UILabel = {
         let label = UILabel()
         label.text = "Dia"
-        label.textColor = UIColor.black
+//        label.textColor = UIColor.black
         label.font = .systemFont(ofSize: 26)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isAccessibilityElement = false
@@ -28,7 +28,10 @@ class DiaCell : UICollectionViewCell {
     }()
     
     func setupViews() {
-        backgroundColor = .white
+//        backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 1)
+//        backgroundColor = UIColor(named: "Cabecalho")
+        self.addBottomBorderWithColor(color: UIColor(named: "Cabecalho")!, width: 0.5)
+        
         
         addSubview(diaLbl)
         
