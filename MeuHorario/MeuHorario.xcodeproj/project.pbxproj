@@ -16,7 +16,6 @@
 		E20F80E025DEF18300F03F56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20F80DF25DEF18300F03F56 /* Assets.xcassets */; };
 		E20F80E325DEF18300F03F56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20F80E125DEF18300F03F56 /* LaunchScreen.storyboard */; };
 		E23A586C25E6EA80000C9E49 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23A586B25E6EA80000C9E49 /* UIColor+Hex.swift */; };
-		E2AA4DAE25DF0D89006C713C /* CellTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AA4DAD25DF0D89006C713C /* CellTypes.swift */; };
 		E2CB9FA325E4447E007FBDF6 /* AulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CB9FA225E4447E007FBDF6 /* AulaCell.swift */; };
 		E2FEA4CA25E5949A00F48399 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEA4C925E5949A00F48399 /* RegisterViewController.swift */; };
 		E2FEA4CD25E5966F00F48399 /* UserDefaults+SafeReadWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEA4CC25E5966F00F48399 /* UserDefaults+SafeReadWrite.swift */; };
@@ -36,7 +35,6 @@
 		E20F80E225DEF18300F03F56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E20F80E425DEF18300F03F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E23A586B25E6EA80000C9E49 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
-		E2AA4DAD25DF0D89006C713C /* CellTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTypes.swift; sourceTree = "<group>"; };
 		E2CB9FA225E4447E007FBDF6 /* AulaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AulaCell.swift; sourceTree = "<group>"; };
 		E2FEA4C925E5949A00F48399 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E2FEA4CC25E5966F00F48399 /* UserDefaults+SafeReadWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+SafeReadWrite.swift"; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 				E20F80DA25DEF18000F03F56 /* ViewController.swift */,
 				E2CB9FA225E4447E007FBDF6 /* AulaCell.swift */,
 				B6253C9325E5927100D9C153 /* DiaCell.swift */,
-				E2AA4DAD25DF0D89006C713C /* CellTypes.swift */,
 				E20F80DC25DEF18000F03F56 /* Main.storyboard */,
 				E20F80DF25DEF18300F03F56 /* Assets.xcassets */,
 				E20F80E125DEF18300F03F56 /* LaunchScreen.storyboard */,
@@ -165,7 +162,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6253C9425E5927100D9C153 /* DiaCell.swift in Sources */,
-				E2AA4DAE25DF0D89006C713C /* CellTypes.swift in Sources */,
 				E2FEA4D625E59CF700F48399 /* SelectViewController.swift in Sources */,
 				E2FEA4CA25E5949A00F48399 /* RegisterViewController.swift in Sources */,
 				E20F80DB25DEF18000F03F56 /* ViewController.swift in Sources */,
