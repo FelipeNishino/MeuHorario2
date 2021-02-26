@@ -9,19 +9,13 @@ import UIKit
 
 class RegisterViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate {
     
+    var needsReload : (control : Bool, at: Set<Int>) = (false, [])
     private let defaultTableCellHeight : CGFloat = 44.0
     private let myTableView = UITableView()
     
-//    let button : UIButton = {
-//        let btn = UIButton(frame: CGRect(x: 0, y: 500, width: 400, height: 20))
-//        btn.setTitle("Set UserDefaults.didAlreadyLaunch to true", for: .normal)
-//        btn.addTarget(self, action: #selector(setDict), for: .touchUpInside)
-//        btn.translatesAutoresizingMaskIntoConstraints = false
-//        btn.backgroundColor = .purple
-//        return btn
-//    }()
+    var chosenValues : [String?] = [nil, nil]
     
-    let titleLbl : UILabel = {
+    private let titleLbl : UILabel = {
         let label = UILabel()
         label.text = "Qual o seu curso?"
         label.textAlignment = .center
@@ -31,7 +25,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         return label
     }()
     
-    let descLbl : UILabel = {
+    private let descLbl : UILabel = {
         let label = UILabel()
         label.text = "Insira o curso o qual você quer ver a grade horária.\nEssa informação pode ser alterada depois."
         label.numberOfLines = 0
@@ -47,21 +41,19 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         
         myTableView.dataSource = self
         myTableView.delegate = self
-        myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyTableCell")
+        myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "RegisterTableCell")
         
         self.navigationController?.delegate = self
         
         self.view.addSubview(myTableView)
         view.addSubview(titleLbl)
         view.addSubview(descLbl)
-//        view.addSubview(button)
-        UserDefaults.didAlreadyLaunch = false
     }
     
     override func viewDidLayoutSubviews() {
         let safeAreaDimensions : (width : CGFloat, height : CGFloat) = (UIScreen.main.bounds.width - (self.view.safeAreaInsets.left + self.view.safeAreaInsets.right), UIScreen.main.bounds.height - (self.view.safeAreaInsets.top + self.view.safeAreaInsets.bottom))
         
-        myTableView.frame = CGRect(x: self.view.safeAreaInsets.left, y: safeAreaDimensions.height / 2 , width: self.view.frame.width - 2 * self.view.safeAreaInsets.right, height: defaultTableCellHeight * 2)
+        myTableView.frame = CGRect(x: self.view.safeAreaInsets.left, y: safeAreaDimensions.height / 2 , width: self.view.frame.width - 2 * self.view.safeAreaInsets.right, height: defaultTableCellHeight * (chosenValues[0] != nil ? 2 : 1))
         
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[vLbl]-20-[vTable]", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["vLbl" : titleLbl, "vTable" : myTableView]))
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : titleLbl]))
@@ -74,9 +66,22 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         self.navigationController?.navigationBar.isHidden = true
     }
     
-    @objc func setDict() {
-        UserDefaults.didAlreadyLaunch = true
-        print("puts")
+    override func viewDidAppear(_ animated: Bool) {
+        if needsReload.control {
+            while !needsReload.at.isEmpty {
+                updateCell(index: needsReload.at.popFirst()!)
+            }
+            needsReload.control = false
+        }
+    }
+    
+    func notifyReload(forCell index: Int) {
+        needsReload.control = true
+        needsReload.at.insert(index)
+    }
+    
+    func updateCell(index: Int) {
+        myTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: UITableView.RowAnimation.automatic)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,8 +89,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let myCell = tableView.dequeueReusableCell(withIdentifier: "MyTableCell", for: indexPath)
-        myCell.textLabel!.text = indexPath.row == 0 ? "Cursos" : "Semestres"
+        let myCell = tableView.dequeueReusableCell(withIdentifier: "RegisterTableCell", for: indexPath)
+        myCell.textLabel!.text = indexPath.row == 0 ? chosenValues[0] ?? "Cursos" : chosenValues[1] ?? "Semestres"
         myCell.accessoryType = .disclosureIndicator
         return myCell
     }
@@ -93,8 +98,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("puts tableview")
         let viewController = SelectViewController()
-//        viewController.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(viewController, animated: true)
-//        self.navController.pushViewController(viewController, animated: true)
+        viewController.delegate = self
+        viewController.senderIndex = indexPath.row
+        self.navigationController?.pushViewController(viewController, animated: false)
     }
 }
