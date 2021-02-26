@@ -10,20 +10,29 @@
 		9697215425E969AC0016F4A7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697215325E969AC0016F4A7 /* Model.swift */; };
 		9697215825E969D40016F4A7 /* ContentViewCursos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697215725E969D40016F4A7 /* ContentViewCursos.swift */; };
 		9697215B25E96A910016F4A7 /* ContentViewAulas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697215A25E96A910016F4A7 /* ContentViewAulas.swift */; };
+		B6253C9425E5927100D9C153 /* DiaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6253C9325E5927100D9C153 /* DiaCell.swift */; };
+		B6253C9825E5A21300D9C153 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6253C9725E5A21300D9C153 /* Extensions.swift */; };
 		E20F80D725DEF18000F03F56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20F80D625DEF18000F03F56 /* AppDelegate.swift */; };
 		E20F80D925DEF18000F03F56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20F80D825DEF18000F03F56 /* SceneDelegate.swift */; };
 		E20F80DB25DEF18000F03F56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20F80DA25DEF18000F03F56 /* ViewController.swift */; };
 		E20F80DE25DEF18000F03F56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20F80DC25DEF18000F03F56 /* Main.storyboard */; };
 		E20F80E025DEF18300F03F56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20F80DF25DEF18300F03F56 /* Assets.xcassets */; };
 		E20F80E325DEF18300F03F56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20F80E125DEF18300F03F56 /* LaunchScreen.storyboard */; };
+		E23A586C25E6EA80000C9E49 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23A586B25E6EA80000C9E49 /* UIColor+Hex.swift */; };
 		E2AA4DAE25DF0D89006C713C /* CellTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AA4DAD25DF0D89006C713C /* CellTypes.swift */; };
 		E2CB9FA325E4447E007FBDF6 /* AulaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CB9FA225E4447E007FBDF6 /* AulaCell.swift */; };
+		E2FEA4CA25E5949A00F48399 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEA4C925E5949A00F48399 /* RegisterViewController.swift */; };
+		E2FEA4CD25E5966F00F48399 /* UserDefaults+SafeReadWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEA4CC25E5966F00F48399 /* UserDefaults+SafeReadWrite.swift */; };
+		E2FEA4D625E59CF700F48399 /* SelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEA4D525E59CF600F48399 /* SelectViewController.swift */; };
+		E2FEA4D925E59D9400F48399 /* WrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEA4D825E59D9400F48399 /* WrapperViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9697215325E969AC0016F4A7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		9697215725E969D40016F4A7 /* ContentViewCursos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewCursos.swift; sourceTree = "<group>"; };
 		9697215A25E96A910016F4A7 /* ContentViewAulas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewAulas.swift; sourceTree = "<group>"; };
+		B6253C9325E5927100D9C153 /* DiaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaCell.swift; sourceTree = "<group>"; };
+		B6253C9725E5A21300D9C153 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E20F80D325DEF18000F03F56 /* MeuHorario.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeuHorario.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E20F80D625DEF18000F03F56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E20F80D825DEF18000F03F56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,8 +41,13 @@
 		E20F80DF25DEF18300F03F56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E20F80E225DEF18300F03F56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E20F80E425DEF18300F03F56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E23A586B25E6EA80000C9E49 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		E2AA4DAD25DF0D89006C713C /* CellTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTypes.swift; sourceTree = "<group>"; };
 		E2CB9FA225E4447E007FBDF6 /* AulaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AulaCell.swift; sourceTree = "<group>"; };
+		E2FEA4C925E5949A00F48399 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		E2FEA4CC25E5966F00F48399 /* UserDefaults+SafeReadWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+SafeReadWrite.swift"; sourceTree = "<group>"; };
+		E2FEA4D525E59CF600F48399 /* SelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectViewController.swift; sourceTree = "<group>"; };
+		E2FEA4D825E59D9400F48399 /* WrapperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +93,20 @@
 				9697215225E969A00016F4A7 /* API */,
 				E20F80D625DEF18000F03F56 /* AppDelegate.swift */,
 				E20F80D825DEF18000F03F56 /* SceneDelegate.swift */,
+				E2FEA4D825E59D9400F48399 /* WrapperViewController.swift */,
+				E2FEA4C925E5949A00F48399 /* RegisterViewController.swift */,
+				E2FEA4D525E59CF600F48399 /* SelectViewController.swift */,
 				E20F80DA25DEF18000F03F56 /* ViewController.swift */,
 				E2CB9FA225E4447E007FBDF6 /* AulaCell.swift */,
+				B6253C9325E5927100D9C153 /* DiaCell.swift */,
 				E2AA4DAD25DF0D89006C713C /* CellTypes.swift */,
 				E20F80DC25DEF18000F03F56 /* Main.storyboard */,
 				E20F80DF25DEF18300F03F56 /* Assets.xcassets */,
 				E20F80E125DEF18300F03F56 /* LaunchScreen.storyboard */,
 				E20F80E425DEF18300F03F56 /* Info.plist */,
+				E2FEA4CC25E5966F00F48399 /* UserDefaults+SafeReadWrite.swift */,
+				E23A586B25E6EA80000C9E49 /* UIColor+Hex.swift */,
+				B6253C9725E5A21300D9C153 /* Extensions.swift */,
 			);
 			path = MeuHorario;
 			sourceTree = "<group>";
@@ -160,14 +181,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6253C9425E5927100D9C153 /* DiaCell.swift in Sources */,
 				E2AA4DAE25DF0D89006C713C /* CellTypes.swift in Sources */,
+				E2FEA4D625E59CF700F48399 /* SelectViewController.swift in Sources */,
+				E2FEA4CA25E5949A00F48399 /* RegisterViewController.swift in Sources */,
 				E20F80DB25DEF18000F03F56 /* ViewController.swift in Sources */,
 				9697215825E969D40016F4A7 /* ContentViewCursos.swift in Sources */,
 				E2CB9FA325E4447E007FBDF6 /* AulaCell.swift in Sources */,
 				9697215425E969AC0016F4A7 /* Model.swift in Sources */,
 				9697215B25E96A910016F4A7 /* ContentViewAulas.swift in Sources */,
+				B6253C9825E5A21300D9C153 /* Extensions.swift in Sources */,
 				E20F80D725DEF18000F03F56 /* AppDelegate.swift in Sources */,
+				E2FEA4CD25E5966F00F48399 /* UserDefaults+SafeReadWrite.swift in Sources */,
 				E20F80D925DEF18000F03F56 /* SceneDelegate.swift in Sources */,
+				E2FEA4D925E59D9400F48399 /* WrapperViewController.swift in Sources */,
+				E23A586C25E6EA80000C9E49 /* UIColor+Hex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +353,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = felipenishino.MeuHorario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -345,7 +373,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = felipenishino.MeuHorario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
