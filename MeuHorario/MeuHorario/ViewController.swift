@@ -13,16 +13,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         (2, [("Pré-Calculo", "Adilson Konrad", "19h10", "20h00"),("Pré-Calculo", "Adilson Konrad", "20h00", "20h50"),("Introdução a Computação", "Thyago Quintas", "21h05", "21h55"),("Introdução a Computação", "Thyago Quintas", "21h55", "22h45")]),
                         (3, [("Programação Web", "Fábio Abenza", "19h10", "20h00"),("Banco de Dados", "Thiago Claro", "20h00", "20h50"), ("Programação Web", "Fábio Abenza", "21h05", "20h55"),("Banco de Dados", "Thiago Claro", "21h55", "22h45")]),
                         (4, [("Programação Web", "Fábio Abenza", "19h10", "20h00"),("Banco de Dados", "Thiago Claro", "20h00", "20h50"), ("Programação Web", "Fábio Abenza", "21h05", "20h55"),("Banco de Dados", "Thiago Claro", "21h55", "22h45")])
-                         
                         ]
     
     private var diaDaSemana = [1 : "Segunda-Feira", 2 : "Terça-Feira", 3 : "Quarta-Feira", 4 : "Quinta-Feira", 5 : "Sexta-Feira", 6 : "Sábado"]
+    
+    private var horarios = ["19h10" : "Desenove e dez", "20h00" : "Vinte", "20h50" : "Vinte e cinquenta", "21h05" : "Vinte uma e cinco",
+                            "21h55" : "Vinte uma e cinquenta e cinco", "22h45" : "Vinte duas e quarenta e cinco",
+                            "08h": "Oito", "08h50" : "Oito e cinquenta", "09h40" : "Nove e quarenta", "9h55" : "Nove e cinquenta e cinco",
+                            "10h45" : "Dez e quarenta e cinco", "11h35" : "Onze e cinquenta e cinco"]
     
     private let horizontalEdgeInsets : CGFloat = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+//    MARK: ViewWillAppear
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,14 +52,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         UserDefaults.didAlreadyLaunch = false
     }
     
+//    MARK: CellsSize
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return indexPath.row % 5 == 0 ? CGSize(width: UIScreen.main.bounds.width - horizontalEdgeInsets, height: 40) : CGSize(width: UIScreen.main.bounds.width - horizontalEdgeInsets, height: 82)
     }
     
+//    MARK: CellsNuber
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return aulas.count * 5
     }
     
+//    MARK: Cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let mod = indexPath.row % 5
         
@@ -75,10 +84,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             myCell.accessibilityLabel = diaDaSemana[aulas[indexPath.row / 5].0]
             self.accessibilityElements?.append(myCell)
             
-            print("----------")
+//            print("----------")
             
             return myCell
         }
+        
         else {
             let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AulaCell", for: indexPath) as! AulaCell
             
@@ -92,7 +102,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             ////Vê se a aula anterior é igual a mim, a não ser que seja a primeira aula
             if mod > 1 && aulas[indexPath.row / 5].1[mod - 1].0 == aulas[indexPath.row / 5].1[mod - 2].0 && aulas[indexPath.row / 5].1[mod - 1].1 == aulas[indexPath.row / 5].1[mod - 2].1 {
-                print("oi")//Aqui eu tenho que tornar a cell n acessível
+//                print("oi")//Aqui eu tenho que tornar a cell n acessível
+                customCell.isAccessibilityElement = false
             }
             else{
                 ////Percorre as aulas que vêm depois de mim
@@ -105,7 +116,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         continuo = false
                     }
                 }
-                print("a \(x)")//Aqui eu tenho que trocar o horário de saída que será lido pelo VoiceOver
+                customCell.accessibilityLabel = "\(aulas[indexPath.row / 5].1[mod - 1].0) com \(aulas[indexPath.row / 5].1[mod - 1].1) das \(aulas[indexPath.row / 5].1[mod - 1].2) até \(aulas[indexPath.row / 5].1[mod - 1 + x].3)"
+//                print("\(x)")//Aqui eu tenho que trocar o horário de saída que será lido pelo VoiceOver
+                
             }
             
             
