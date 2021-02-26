@@ -14,6 +14,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     private let myTableView = UITableView()
     
     var chosenValues : [String?] = [nil, nil]
+    var chosenCourse : Curso? = nil
     
     private let titleLbl : UILabel = {
         let label = UILabel()
@@ -44,6 +45,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         myTableView.dataSource = self
         myTableView.delegate = self
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "RegisterTableCell")
+        myTableView.isScrollEnabled = false
         
         self.navigationController?.delegate = self
         
@@ -55,7 +57,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     override func viewDidLayoutSubviews() {
         let safeAreaDimensions : (width : CGFloat, height : CGFloat) = (UIScreen.main.bounds.width - (self.view.safeAreaInsets.left + self.view.safeAreaInsets.right), UIScreen.main.bounds.height - (self.view.safeAreaInsets.top + self.view.safeAreaInsets.bottom))
         
-        myTableView.frame = CGRect(x: self.view.safeAreaInsets.left, y: safeAreaDimensions.height / 2 , width: self.view.frame.width - 2 * self.view.safeAreaInsets.right, height: defaultTableCellHeight * (chosenValues[0] != nil ? 2 : 1))
+        myTableView.frame = CGRect(x: self.view.safeAreaInsets.left, y: safeAreaDimensions.height / 2 , width: self.view.frame.width - 2 * self.view.safeAreaInsets.right, height: defaultTableCellHeight * (chosenCourse != nil ? 2 : 1))
         
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[vLbl]-20-[vTable]", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["vLbl" : titleLbl, "vTable" : myTableView]))
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : titleLbl]))

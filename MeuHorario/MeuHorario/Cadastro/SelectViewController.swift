@@ -21,6 +21,26 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     
     private let dados = [["BCC", "BSI", "TADS"], ["primeiro", "segundo", "terceiro", "quarto", "quinto", "sexto"]]
     
+    private let fetchUtility = ContentViewCursos()
+    private var cursos = [Curso]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.myTableView.reloadData()
+            }
+        }
+    }
+    
+    private var horarios = [String]() {
+        didSet {
+            print("sadasd")
+            DispatchQueue.main.async {
+                self.myTableView.reloadData()
+            }
+        }
+    }
+    
+    private var aulas = [Horario]()
+    
 //    private let cursos = ["BCC", "BSI", "TADS"]
 //    private let semestres = ["primeiro", "segundo", "terceiro", "quarto", "quinto", "sexto"]
     private var tableCategory : ContentType?
@@ -41,6 +61,26 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         tableCategory = ContentType(rawValue: senderIndex ?? 0)
         self.navigationController?.navigationBar.topItem?.title = self.tableCategory == .courses ? "Cursos" : "Semestres"
         self.navigationController?.navigationBar.isHidden = false
+        
+        if tableCategory == .courses {
+            fetchUtility.loadDataCursos { cursosArray in
+                self.cursos = cursosArray
+            }
+        }
+        else {
+            fetchUtility.loadDataHorario(courseId: delegate?.chosenCourse?.id ?? "1") { horariosArray in
+                print(horariosArray.count)
+                var i = 0
+                var auxSet = Set<String>()
+                horariosArray.forEach { horario in
+                    auxSet.insert(horario.semestre)
+                    i += 1
+                }
+                print(i)
+                self.horarios = auxSet.compactMap({$0}).sorted()
+                print(self.horarios.description)
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -57,21 +97,35 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dados[tableCategory?.rawValue ?? 0].count
+        if tableCategory != .courses {
+            return horarios.count
+        }
+        
+        return cursos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "SelectionTableCell", for: indexPath)
-        myCell.textLabel!.text = dados[tableCategory?.rawValue ?? 0][indexPath.row]
+        if tableCategory == .periods {
+            print(horarios.count)
+            myCell.textLabel!.text = horarios[indexPath.row]
+        }
+        else {
+            myCell.textLabel!.text = cursos[indexPath.row].nome
+        }
+
         return myCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedValue = tableView.cellForRow(at: indexPath)?.textLabel?.text
+        
         if tableCategory == .courses {
-            delegate?.chosenValues[1] = nil
+//            delegate?.chosenValues[1] = nil
             delegate?.notifyReload(forCell: 1)
+            delegate?.chosenCourse = cursos.first(where: {curso in curso.nome == selectedValue})
         }
-        delegate?.chosenValues[tableCategory?.rawValue ?? 0] = tableView.cellForRow(at: indexPath)?.textLabel?.text
+        delegate?.chosenValues[tableCategory?.rawValue ?? 0] = selectedValue
         delegate?.notifyReload(forCell: tableCategory?.rawValue ?? 0)
         self.navigationController?.popViewController(animated: true)
     }

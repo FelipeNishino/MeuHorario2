@@ -6,27 +6,26 @@
 //
 
 import Foundation
-import SwiftUI
 
-struct ContentViewCursos: View {
+class ContentViewCursos {
     
-    @State var results = [Curso]()
+    var resultsCursos = [Curso]()
+    var resultsHorarios = [Horario]()
     
-    func loadDataCursos() {
+    func loadDataCursos(completionHandler: @escaping ([Curso]) -> Void) {
         guard let url = URL(string: "http://sistemasparainternet.azurewebsites.net/nasa/getCursos.php") else {
             print("Your API end point is Invalid")
             return
         }
         let request = URLRequest(url: url)
 
-        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 
                 if let response = try? JSONDecoder().decode(Response.self, from: data) {
                     DispatchQueue.main.async {
-                        self.results = response.cursos
-                        print(results)
+                        self.resultsCursos = response.cursos
+                        completionHandler(self.resultsCursos)
                     }
                     return
                 }
@@ -36,21 +35,39 @@ struct ContentViewCursos: View {
         }.resume()
     }
     
-    var body: some View {
-        
+    func loadDataHorario(courseId id: String ,completionHandler: @escaping ([Horario]) -> Void) {
+        guard let url = URL(string: "http://sistemasparainternet.azurewebsites.net/nasa/getHorarios.php?id=\(id)") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        let request = URLRequest(url: url)
 
-        List(results, id: \.id) { item in
-            VStack(alignment: .leading) {
-                Text(item.nome)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                
+                if let response = try? JSONDecoder().decode(Aulas.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.resultsHorarios = response.horarios
+                        completionHandler(self.resultsHorarios)
+//                        print(resultsHorarios)
+                    }
+                    return
+                }
+                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+                
             }
-        }.onAppear(perform: loadDataCursos)
+        }.resume()
     }
     
+//    var body: some View {
+//
+//
+//        List(results, id: \.id) { item in
+//            VStack(alignment: .leading) {
+//                Text(item.nome)
+//            }
+//        }.onAppear(perform: loadDataCursos)
+//    }
+//
     
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentViewCursos()
-    }
 }
