@@ -30,7 +30,12 @@ class DiaCell : UICollectionViewCell {
     func setupViews() {
 //        backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 1)
 //        backgroundColor = UIColor(named: "Cabecalho")
-        self.addBottomBorderWithColor(color: UIColor(named: "Cabecalho")!, width: 0.5)
+        
+        let border = UIView()
+        border.backgroundColor = UIColor(named: "Cabecalho")
+        border.frame = CGRect(x: 0, y: self.frame.size.height - 0.5, width: self.frame.size.width, height: 0.5)
+        border.isAccessibilityElement = false
+        addSubview(border)
         
         
         addSubview(diaLbl)
