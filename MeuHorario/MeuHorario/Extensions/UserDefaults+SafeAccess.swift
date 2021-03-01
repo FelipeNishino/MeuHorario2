@@ -10,6 +10,8 @@ import Foundation
 extension UserDefaults {
     private enum Keys {
         static let didAlreadyLaunch = "didAlreadyLaunch"
+        static let courseId = "courseId"
+        static let semester = "semester"
     }
     
     class var didAlreadyLaunch : Bool {
@@ -18,6 +20,24 @@ extension UserDefaults {
         }
         set {
             standard.set(newValue, forKey: Keys.didAlreadyLaunch)
+        }
+    }
+    
+    class var courseId : String? {
+        get {
+            return standard.string(forKey: Keys.courseId)
+        }
+        set {
+            standard.set(newValue, forKey: Keys.courseId)
+        }
+    }
+    
+    class var semester : String? {
+        get {
+            return standard.string(forKey: Keys.semester)
+        }
+        set {
+            standard.set(newValue, forKey: Keys.semester)
         }
     }
     

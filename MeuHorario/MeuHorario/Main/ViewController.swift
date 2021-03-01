@@ -49,7 +49,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        myCollectionView.backgroundColor = UIColor.init(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
         myCollectionView.backgroundColor = UIColor(named: "Fundo")
         self.view.addSubview(myCollectionView)
-        UserDefaults.didAlreadyLaunch = false
     }
     
 //    MARK: CellsSize

@@ -32,7 +32,6 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     
     private var horarios = [String]() {
         didSet {
-            print("sadasd")
             DispatchQueue.main.async {
                 self.myTableView.reloadData()
             }
@@ -69,16 +68,11 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         }
         else {
             fetchUtility.loadDataHorario(courseId: delegate?.chosenCourse?.id ?? "1") { horariosArray in
-                print(horariosArray.count)
-                var i = 0
                 var auxSet = Set<String>()
                 horariosArray.forEach { horario in
                     auxSet.insert(horario.semestre)
-                    i += 1
                 }
-                print(i)
                 self.horarios = auxSet.compactMap({$0}).sorted()
-                print(self.horarios.description)
             }
         }
     }
@@ -107,7 +101,6 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "SelectionTableCell", for: indexPath)
         if tableCategory == .periods {
-            print(horarios.count)
             myCell.textLabel!.text = horarios[indexPath.row]
         }
         else {
@@ -120,13 +113,14 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedValue = tableView.cellForRow(at: indexPath)?.textLabel?.text
         
-        if tableCategory == .courses {
-//            delegate?.chosenValues[1] = nil
-            delegate?.notifyReload(forCell: 1)
+        if tableCategory == .courses {            
+            delegate?.chosenValues[1] = nil
+//            delegate?.notifyReload(forCell: 1)
             delegate?.chosenCourse = cursos.first(where: {curso in curso.nome == selectedValue})
         }
         delegate?.chosenValues[tableCategory?.rawValue ?? 0] = selectedValue
         delegate?.notifyReload(forCell: tableCategory?.rawValue ?? 0)
+        delegate?.loadViewIfNeeded()
         self.navigationController?.popViewController(animated: true)
     }
 }
