@@ -11,6 +11,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     
     var needsReload : (control : Bool, at: Set<Int>) = (false, [])
     var shouldReload : Bool = false
+    
     private let defaultTableCellHeight : CGFloat = 44.0
     private let myTableView = UITableView()
     
@@ -74,6 +75,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         
         self.navigationController?.delegate = self
         
+        
+        
         self.view.addSubview(myTableView)
         self.view.addSubview(titleLbl)
         self.view.addSubview(descLbl)
@@ -100,13 +103,17 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         print("willAppear")
+        
         self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = !UserDefaults.didAlreadyLaunch
+        
         if chosenValues[1] != nil {
             continueBtn.isHidden = false
         }
         if chosenCourse != nil && myTableView.visibleCells.count == 1 {
             myTableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
         }
+
         self.view.backgroundColor = UIColor(named: "Fundo")
     }
     
@@ -133,9 +140,10 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         UserDefaults.semester = chosenValues[1]
         UserDefaults.didAlreadyLaunch = true
         
+        print("puts botao")
+        
         self.navigationController?.navigationBar.isHidden = true
-        let vc = ViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.dismiss(animated: false, completion: {print("dismiss vc")})
     }
     
     func notifyReload(forCell index: Int) {
