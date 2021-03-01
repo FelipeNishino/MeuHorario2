@@ -46,9 +46,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         myCollectionView.register(DiaCell.self, forCellWithReuseIdentifier: "DiaCell")
         myCollectionView.register(AulaCell.self, forCellWithReuseIdentifier: "AulaCell")
         
+        
+        let configButton : UIBarButtonItem = {
+            let btn = UIBarButtonItem(image: UIImage(systemName: "wrench.and.screwdriver"), style: .plain, target: self, action: #selector(changeCourse))
+            btn.action = #selector(changeCourse)
+            btn.tintColor = UIColor(named: "cabecalho")
+            return btn
+        }()
+        
+        self.navigationItem.title = "Meu curso"
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.rightBarButtonItem = configButton
+        
 //        myCollectionView.backgroundColor = UIColor.init(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
         myCollectionView.backgroundColor = UIColor(named: "Fundo")
         self.view.addSubview(myCollectionView)
+    }
+    
+    @objc func changeCourse() {
+        print("asasd")
+        let rvc = RegisterViewController()
+        rvc.chosenCourse = Curso(id: UserDefaults.courseId!, nome: "Tem q arrumar")
+        rvc.chosenValues[1] = UserDefaults.semester!
+        self.navigationController?.pushViewController(rvc, animated: true)
     }
     
 //    MARK: CellsSize
