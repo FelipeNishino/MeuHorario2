@@ -6,9 +6,82 @@
 //
 
 import UIKit
+
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private var aulas = [
+    private let fetchUtility = ContentViewCursos()
+    
+    private var myCollectionView : UICollectionView!
+    
+    private var aulasFull = [Horario](){
+        didSet{
+            
+            var auxSet = Set<String>()
+            for aula in aulasFull {
+                auxSet.insert(aula.diaSemana)
+            }
+            
+            let set = auxSet.sorted()
+                        
+//            for dia in set {
+//                var tupla : (Int, [(String, String, String, String)])
+//                var vetor = [(String, String, String, String)]()
+//
+//                for aula in aulasFull {
+//                    if aula.diaSemana == dia {
+//                        let IO = aula.faixaHoraria.components(separatedBy: " - ")
+//                        var qUpla : (String, String, String, String)
+//                        qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
+//                        vetor.append(qUpla)
+//                    }
+//                }
+//
+//                tupla = (Int(dia)!, vetor)
+//
+//                aulas.append(tupla)
+//            }
+            
+                for dia in set {
+                    var tupla : (Int, [(String, String, String, String)])
+                    var vetorModelo : [(String, String, String, String)]
+//                    var vetor = [(String, String, String, String)]()
+                    
+                    if aulasFull[0].semestre.contains("Manhã") {
+                        vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "9h55", "10h45"), ("", "", "10h45", "11h35")]
+                    }
+                    else {
+                        vetorModelo = [("", "", "19h10", "20h00"), ("", "", "20h00", "20h50"), ("", "", "21h05", "21h55"), ("", "", "21h55", "22h45")]
+                        
+                    }
+                    
+                    for aula in aulasFull {
+                        if aula.diaSemana == dia {
+                            let IO = aula.faixaHoraria.components(separatedBy: " - ")
+                            var qUpla : (String, String, String, String)
+                            qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
+                            for i in (0...3){
+                                if vetorModelo[i].2 == qUpla.2 {
+                                    vetorModelo[i] = qUpla
+                                }
+                            }
+                        }
+                    }
+                    
+                    tupla = (Int(dia)!, vetorModelo)
+                    
+                    aulas.append(tupla)
+                    
+                }
+            
+            DispatchQueue.main.async {
+                self.myCollectionView.reloadData()
+            }
+        }
+    }
+    
+    private var aulas = [(Int, [(String, String, String, String)])]()
+    
+    private var aulasTeste = [
                         (1, [("Algoritmos I", "Rodrigo Assirati", "19h10", "20h00"), ("Algoritmos I", "Rodrigo Assirati", "20h00", "20h50"), ("Algoritmos I", "Rodrigo Assirati", "21h05", "21h55"), ("Algoritmos I", "Rodrigo Assirati", "21h55", "22h45")]),
                         (2, [("Pré-Calculo", "Adilson Konrad", "19h10", "20h00"),("Pré-Calculo", "Adilson Konrad", "20h00", "20h50"),("Introdução a Computação", "Thyago Quintas", "21h05", "21h55"),("Introdução a Computação", "Thyago Quintas", "21h55", "22h45")]),
                         (3, [("Programação Web", "Fábio Abenza", "19h10", "20h00"),("Banco de Dados", "Thiago Claro", "20h00", "20h50"), ("Programação Web", "Fábio Abenza", "21h05", "20h55"),("Banco de Dados", "Thiago Claro", "21h55", "22h45")]),
@@ -33,11 +106,23 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        fetchUtility.loadDataHorario(courseId: UserDefaults.courseId ?? "1") { horariosArray in
+            var horarios = [Horario]()
+            horariosArray.forEach { horario in
+                if horario.semestre == UserDefaults.semester {
+                    horarios.append(horario)
+                }
+            }
+            self.aulasFull = horarios
+        }
+        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: horizontalEdgeInsets / 2, bottom: 10, right: horizontalEdgeInsets / 2)
-//        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - horizontalEdgeInsets, height: 60)
         
-        let myCollectionView:UICollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+//        myCollectionView.frame = self.view.frame
+//        myCollectionView.collectionViewLayout = layout
+        
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
         
@@ -120,7 +205,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             var continuo = true///Evita que duas aulas iguais n seguidas quebrem o código
             
             ////Vê se a aula anterior é igual a mim, a não ser que seja a primeira aula
-            if mod > 1 && aulas[indexPath.row / 5].1[mod - 1].0 == aulas[indexPath.row / 5].1[mod - 2].0 && aulas[indexPath.row / 5].1[mod - 1].1 == aulas[indexPath.row / 5].1[mod - 2].1 {
+            if aulas[indexPath.row / 5].1[mod - 1].0 == "" || (mod > 1 && aulas[indexPath.row / 5].1[mod - 1].0 == aulas[indexPath.row / 5].1[mod - 2].0 && aulas[indexPath.row / 5].1[mod - 1].1 == aulas[indexPath.row / 5].1[mod - 2].1) {
 //                print("oi")//Aqui eu tenho que tornar a cell n acessível
                 customCell.isAccessibilityElement = false
             }
