@@ -175,6 +175,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             let date = Date()
     
+            myCell.backgroundColor = .clear
+            myCell.diaLbl.textColor = .label
+            
             ////Pinta de azul o dia atual
             if date.dayNumberOfWeek()! == aulas[indexPath.row / 5].0 {
 //                myCell.backgroundColor = UIColor.init(red: 0.0, green: 70/255, blue: 135/255, alpha: 1)
