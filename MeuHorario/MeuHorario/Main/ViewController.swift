@@ -23,22 +23,55 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             let set = auxSet.sorted()
                         
-            for dia in set {
-                var tupla : (Int, [(String, String, String, String)])
-                var vetor = [(String, String, String, String)]()
-                
-                for aula in aulasFull {
-                    if aula.diaSemana == dia {
-                        let IO = aula.faixaHoraria.components(separatedBy: " - ")
-                        var qUpla : (String, String, String, String)
-                        qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
-                        vetor.append(qUpla)
+//            for dia in set {
+//                var tupla : (Int, [(String, String, String, String)])
+//                var vetor = [(String, String, String, String)]()
+//
+//                for aula in aulasFull {
+//                    if aula.diaSemana == dia {
+//                        let IO = aula.faixaHoraria.components(separatedBy: " - ")
+//                        var qUpla : (String, String, String, String)
+//                        qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
+//                        vetor.append(qUpla)
+//                    }
+//                }
+//
+//                tupla = (Int(dia)!, vetor)
+//
+//                aulas.append(tupla)
+//            }
+            
+                for dia in set {
+                    var tupla : (Int, [(String, String, String, String)])
+                    var vetorModelo : [(String, String, String, String)]
+//                    var vetor = [(String, String, String, String)]()
+                    
+                    if aulasFull[0].semestre.contains("Manhã") {
+                        vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "9h55", "10h45"), ("", "", "10h45", "11h35")]
                     }
+                    else {
+                        vetorModelo = [("", "", "19h10", "20h00"), ("", "", "20h00", "20h50"), ("", "", "21h05", "21h55"), ("", "", "21h55", "22h45")]
+                        
+                    }
+                    
+                    for aula in aulasFull {
+                        if aula.diaSemana == dia {
+                            let IO = aula.faixaHoraria.components(separatedBy: " - ")
+                            var qUpla : (String, String, String, String)
+                            qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
+                            for i in (0...3){
+                                if vetorModelo[i].2 == qUpla.2 {
+                                    vetorModelo[i] = qUpla
+                                }
+                            }
+                        }
+                    }
+                    
+                    tupla = (Int(dia)!, vetorModelo)
+                    
+                    aulas.append(tupla)
+                    
                 }
-                tupla = (Int(dia)!, vetor)
-                
-                aulas.append(tupla)
-            }
             
             DispatchQueue.main.async {
                 self.myCollectionView.reloadData()
@@ -152,7 +185,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             var continuo = true///Evita que duas aulas iguais n seguidas quebrem o código
             
             ////Vê se a aula anterior é igual a mim, a não ser que seja a primeira aula
-            if mod > 1 && aulas[indexPath.row / 5].1[mod - 1].0 == aulas[indexPath.row / 5].1[mod - 2].0 && aulas[indexPath.row / 5].1[mod - 1].1 == aulas[indexPath.row / 5].1[mod - 2].1 {
+            if aulas[indexPath.row / 5].1[mod - 1].0 == "" || (mod > 1 && aulas[indexPath.row / 5].1[mod - 1].0 == aulas[indexPath.row / 5].1[mod - 2].0 && aulas[indexPath.row / 5].1[mod - 1].1 == aulas[indexPath.row / 5].1[mod - 2].1) {
 //                print("oi")//Aqui eu tenho que tornar a cell n acessível
                 customCell.isAccessibilityElement = false
             }
