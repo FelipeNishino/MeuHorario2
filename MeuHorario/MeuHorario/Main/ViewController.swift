@@ -155,7 +155,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @objc func changeCourse() {
         let rvc = RegisterViewController()
-        rvc.chosenCourse = Curso(id: UserDefaults.courseId!, nome: "Tem q arrumar")
+        
+        let courseName = UserDefaults.courseName?.description ?? String();
+        rvc.chosenCourse = Curso(id: UserDefaults.courseId!, nome: courseName)
+        print(courseName)
+        
         rvc.chosenValues[1] = UserDefaults.semester!
         self.navigationController?.pushViewController(rvc, animated: true)
     }

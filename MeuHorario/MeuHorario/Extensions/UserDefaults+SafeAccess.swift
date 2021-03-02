@@ -11,6 +11,7 @@ extension UserDefaults {
     private enum Keys {
         static let didAlreadyLaunch = "didAlreadyLaunch"
         static let courseId = "courseId"
+        static let courseName = "courseName"
         static let semester = "semester"
     }
     
@@ -32,6 +33,15 @@ extension UserDefaults {
         }
     }
     
+    class var courseName : String? {
+        get {
+            return standard.string(forKey: Keys.courseName)
+        }
+        set {
+            standard.set(newValue, forKey: Keys.courseName)
+        }
+    }
+    
     class var semester : String? {
         get {
             return standard.string(forKey: Keys.semester)
@@ -41,17 +51,4 @@ extension UserDefaults {
         }
     }
     
-//    static private func inRange(value: Int, range: ClosedRange<Int>) -> Bool {
-//        range ~= value
-//    }
-//
-//    static private func inRange(value: Int, range: ClosedRange<Int>, do action: () -> Void) {
-//        if range ~= value {
-//            action()
-//        }
-//    }
-    
-//    static func setApplicationDefault() {
-//        UserDefaults.didAlreadyLaunch = false
-//    }
 }

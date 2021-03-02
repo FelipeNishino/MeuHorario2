@@ -125,6 +125,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     
     @objc func finish() {
         UserDefaults.courseId = chosenCourse?.id
+        UserDefaults.courseName = chosenCourse?.nome
         UserDefaults.semester = chosenValues[1]
         UserDefaults.didAlreadyLaunch = true
         
