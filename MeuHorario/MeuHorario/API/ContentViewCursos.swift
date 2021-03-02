@@ -14,7 +14,7 @@ class ContentViewCursos {
     
     func loadDataCursos(completionHandler: @escaping ([Curso]) -> Void) {
         guard let url = URL(string: "http://sistemasparainternet.azurewebsites.net/nasa/getCursos.php") else {
-            print("Your API end point is Invalid")
+//            print("Your API end point is Invalid")
             return
         }
         let request = URLRequest(url: url)
@@ -29,7 +29,7 @@ class ContentViewCursos {
                     }
                     return
                 }
-                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+//                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
                 
             }
         }.resume()
@@ -37,7 +37,7 @@ class ContentViewCursos {
     
     func loadDataHorario(courseId id: String ,completionHandler: @escaping ([Horario]) -> Void) {
         guard let url = URL(string: "http://sistemasparainternet.azurewebsites.net/nasa/getHorarios.php?id=\(id)") else {
-            print("Your API end point is Invalid")
+//            print("Your API end point is Invalid")
             return
         }
         let request = URLRequest(url: url)
@@ -53,7 +53,7 @@ class ContentViewCursos {
                     }
                     return
                 }
-                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+//                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
                 
             }
         }.resume()
