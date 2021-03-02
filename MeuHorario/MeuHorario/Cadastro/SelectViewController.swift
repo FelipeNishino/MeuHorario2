@@ -12,15 +12,16 @@ enum ContentType : Int {
     case periods
 }
 
-class SelectViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate {
+class SelectViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate {
+    
     weak var delegate : RegisterViewController?
     var senderIndex : Int?
-    
+    private var searchArguments : String = ""
+    private var hasBothPeriods = false
     private let myTableView = UITableView()
+    private let mySearchBar = UISearchBar()
     private let defaultTableCellHeight : CGFloat = 44.0
-    
-    private let dados = [["BCC", "BSI", "TADS"], ["primeiro", "segundo", "terceiro", "quarto", "quinto", "sexto"]]
-    
+        
     private let fetchUtility = ContentViewCursos()
     private var cursos = [Curso]() {
         didSet {
@@ -29,6 +30,7 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    private var filteredCourses = [Curso]()
     
     private var horarios = [String]() {
         didSet {
@@ -37,27 +39,47 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    private var horariosCategorizados = [[String]]()
     
     private var aulas = [Horario]()
     
 //    private let cursos = ["BCC", "BSI", "TADS"]
 //    private let semestres = ["primeiro", "segundo", "terceiro", "quarto", "quinto", "sexto"]
-    private var tableCategory : ContentType?
-
+    private var tableCategory : ContentType = .courses
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableCategory = ContentType(rawValue: senderIndex ?? 0) ?? .courses
         
         myTableView.dataSource = self
         myTableView.delegate = self
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "SelectionTableCell")
+        myTableView.keyboardDismissMode = .onDrag
         
+        mySearchBar.delegate = self
+        mySearchBar.placeholder = "Pesquisar"
+        
+        if tableCategory == .courses {
+            let sc = UISearchController(searchResultsController: nil)
+            sc.hidesNavigationBarDuringPresentation = false
+            sc.obscuresBackgroundDuringPresentation = false
+            sc.searchBar.delegate = self
+            sc.searchBar.placeholder = "Pesquisar"
+            sc.showsSearchResultsController = true
+            sc.searchBar.showsCancelButton = false
+            self.navigationItem.searchController = sc
+        }
+        else {
+            horariosCategorizados = [[],[]]
+        }
         self.navigationController?.delegate = self
         
         self.view.addSubview(myTableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tableCategory = ContentType(rawValue: senderIndex ?? 0)
+        
         self.navigationController?.navigationBar.topItem?.title = self.tableCategory == .courses ? "Cursos" : "Semestres"
         self.navigationController?.navigationBar.isHidden = false
         
@@ -78,33 +100,41 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     }
     
     override func viewWillLayoutSubviews() {
-        myTableView.frame = CGRect(x: self.view.safeAreaInsets.left, y: self.view.safeAreaInsets.top , width: self.view.frame.width - 2 * self.view.safeAreaInsets.right, height: self.view.frame.height)
+        myTableView.frame = CGRect(x: self.view.safeAreaInsets.left, y: self.view.frame.minY , width: self.view.frame.width - 2 * self.view.safeAreaInsets.right, height: self.view.frame.height)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        UserDefaults.didAlreadyLaunch = true
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if tableCategory != .courses {
+            hasBothPeriods = horarios.contains(where: {$0.localizedCaseInsensitiveContains("Manhã")}) && horarios.contains(where: {$0.localizedCaseInsensitiveContains("Noite")})
+            
+            if hasBothPeriods {
+                for period in horarios {
+                    horariosCategorizados[period.localizedStandardContains("Manhã") ? 0 : 1].append(period)
+                }
+            }
+            
+            return horarios.contains(where: {$0.localizedCaseInsensitiveContains("Manhã")}) && horarios.contains(where: {$0.localizedCaseInsensitiveContains("Noite")}) ? 2 : 1
+        }
+        return 1
     }
-    
-    override func viewDidLayoutSubviews() {
-//        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|v0|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : lbl]))
-//        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|v0|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : lbl]))
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return tableCategory == .periods ? (section == 0 ? "Manhã" : "Noite") : ""
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableCategory != .courses {
-            return horarios.count
+            return hasBothPeriods ? horariosCategorizados[(section == 0 ? 0 : 1)].count : horarios.count
         }
+        filteredCourses = searchArguments != "" ? cursos.filter({curso in curso.nome.localizedCaseInsensitiveContains(searchArguments)}) : cursos
         
-        return cursos.count
+        return filteredCourses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "SelectionTableCell", for: indexPath)
         if tableCategory == .periods {
-            myCell.textLabel!.text = horarios[indexPath.row]
+            myCell.textLabel?.text = hasBothPeriods ? horariosCategorizados[indexPath.section == 0 ? 0 : 1][indexPath.row] : horarios[indexPath.row]
         }
         else {
-            myCell.textLabel!.text = cursos[indexPath.row].nome
+            myCell.textLabel!.text = filteredCourses[indexPath.row].nome
         }
 
         return myCell
@@ -118,9 +148,15 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
 //            delegate?.notifyReload(forCell: 1)
             delegate?.chosenCourse = cursos.first(where: {curso in curso.nome == selectedValue})
         }
-        delegate?.chosenValues[tableCategory?.rawValue ?? 0] = selectedValue
-        delegate?.notifyReload(forCell: tableCategory?.rawValue ?? 0)
+        delegate?.chosenValues[tableCategory.rawValue] = selectedValue
+        delegate?.notifyReload(forCell: tableCategory.rawValue)
         delegate?.loadViewIfNeeded()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchArguments = searchText
+        print("changing search arguments")
+        myTableView.reloadData()
     }
 }
