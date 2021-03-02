@@ -31,11 +31,13 @@
       "size" : "40x40"
     },
     {
+      "filename" : "App-Icon.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
+      "filename" : "Captura de Tela 2021-03-02 às 17.43.59.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
@@ -81,6 +83,7 @@
       "size" : "76x76"
     },
     {
+      "filename" : "Icon.jpeg",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
