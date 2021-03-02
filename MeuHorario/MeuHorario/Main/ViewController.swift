@@ -47,7 +47,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                    var vetor = [(String, String, String, String)]()
                     
                     if aulasFull[0].semestre.contains("Manhã") {
-                        vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "9h55", "10h45"), ("", "", "10h45", "11h35")]
+                        vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35")]
                     }
                     else {
                         vetorModelo = [("", "", "19h10", "20h00"), ("", "", "20h00", "20h50"), ("", "", "21h05", "21h55"), ("", "", "21h55", "22h45")]
@@ -92,7 +92,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     private var horarios = ["19h10" : "Desenove e dez", "20h00" : "Vinte", "20h50" : "Vinte e cinquenta", "21h05" : "Vinte uma e cinco",
                             "21h55" : "Vinte uma e cinquenta e cinco", "22h45" : "Vinte duas e quarenta e cinco",
-                            "08h": "Oito", "08h50" : "Oito e cinquenta", "09h40" : "Nove e quarenta", "9h55" : "Nove e cinquenta e cinco",
+                            "08h": "Oito", "08h50" : "Oito e cinquenta", "09h40" : "Nove e quarenta", "09h55" : "Nove e cinquenta e cinco",
                             "10h45" : "Dez e quarenta e cinco", "11h35" : "Onze e cinquenta e cinco"]
     
     private let horizontalEdgeInsets : CGFloat = 20
@@ -142,6 +142,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.navigationItem.title = "Meu curso"
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.rightBarButtonItem = configButton
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
         
 //        myCollectionView.backgroundColor = UIColor.init(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
         myCollectionView.backgroundColor = UIColor(named: "Fundo")
@@ -149,7 +151,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     @objc func changeCourse() {
-        print("asasd")
         let rvc = RegisterViewController()
         rvc.chosenCourse = Curso(id: UserDefaults.courseId!, nome: "Tem q arrumar")
         rvc.chosenValues[1] = UserDefaults.semester!
@@ -191,8 +192,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             myCell.accessibilityLabel = diaDaSemana[aulas[indexPath.row / 5].0]
             self.accessibilityElements?.append(myCell)
             
-//            print("----------")
-            
             return myCell
         }
         
@@ -209,7 +208,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             ////Vê se a aula anterior é igual a mim, a não ser que seja a primeira aula
             if aulas[indexPath.row / 5].1[mod - 1].0 == "" || (mod > 1 && aulas[indexPath.row / 5].1[mod - 1].0 == aulas[indexPath.row / 5].1[mod - 2].0 && aulas[indexPath.row / 5].1[mod - 1].1 == aulas[indexPath.row / 5].1[mod - 2].1) {
-//                print("oi")//Aqui eu tenho que tornar a cell n acessível
                 customCell.isAccessibilityElement = false
             }
             else{
@@ -224,8 +222,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     }
                 }
                 customCell.accessibilityLabel = "\(aulas[indexPath.row / 5].1[mod - 1].0) com \(aulas[indexPath.row / 5].1[mod - 1].1) das \(aulas[indexPath.row / 5].1[mod - 1].2) até \(aulas[indexPath.row / 5].1[mod - 1 + x].3)"
-//                print("\(x)")//Aqui eu tenho que trocar o horário de saída que será lido pelo VoiceOver
-                
             }
             
             
@@ -233,12 +229,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return customCell
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
-        print("User tapped on item \(indexPath.row)")
-    }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

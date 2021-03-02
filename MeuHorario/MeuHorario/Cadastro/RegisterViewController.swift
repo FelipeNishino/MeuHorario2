@@ -74,9 +74,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         myTableView.backgroundColor = self.view.backgroundColor
         
         self.navigationController?.delegate = self
-        
-        
-        
+           
         self.view.addSubview(myTableView)
         self.view.addSubview(titleLbl)
         self.view.addSubview(descLbl)
@@ -102,8 +100,6 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("willAppear")
-        
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = !UserDefaults.didAlreadyLaunch
         
@@ -118,21 +114,12 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("didAppear")
         if needsReload.control {
-            print("Tries to reload")
             while !needsReload.at.isEmpty {
                 updateCell(index: needsReload.at.popFirst()!)
             }
             needsReload.control = false
-            print("Reload done")
         }
-//        if chosenCourse == nil {
-//            myTableView.performBatchUpdates({ shownCellsCount -= 1 ; myTableView.deleteRows(at: [IndexPath(row: 1, section: 0)], with: .automatic) ;myTableView.reloadData()}, completion: {didcomplete in print(didcomplete ? "deletion successful" : "deletion unsuccessful")})
-//        }
-//        else {
-//            myTableView.performBatchUpdates({ shownCellsCount += 1 ; myTableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .automatic) ;myTableView.reloadData()}, completion: {didcomplete in print(didcomplete ? "insertion successful" : "insertion unsuccessful")})
-//        }
     }
     
     @objc func finish() {
@@ -140,10 +127,8 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         UserDefaults.semester = chosenValues[1]
         UserDefaults.didAlreadyLaunch = true
         
-        print("puts botao")
-        
         self.navigationController?.navigationBar.isHidden = true
-        self.dismiss(animated: false, completion: {print("dismiss vc")})
+        self.dismiss(animated: false, completion: { print("dismiss vc") })
     }
     
     func notifyReload(forCell index: Int) {
@@ -156,7 +141,6 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("trying to load tableView with \(chosenCourse == nil ? 1 : 2) cells")
         return chosenCourse == nil ? 1 : 2
     }
     
@@ -171,7 +155,6 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("puts tableview")
         let viewController = SelectViewController()
         viewController.delegate = self
         viewController.senderIndex = indexPath.row

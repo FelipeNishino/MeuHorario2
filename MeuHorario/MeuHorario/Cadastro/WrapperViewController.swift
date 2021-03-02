@@ -20,8 +20,6 @@ class WrapperViewController : UIViewController {
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .fullScreen
         navController.navigationBar.isHidden = true
-        navController.navigationController?.navigationBar.prefersLargeTitles = true
-        navController.navigationItem.largeTitleDisplayMode = .always
         return navController
     }
 }

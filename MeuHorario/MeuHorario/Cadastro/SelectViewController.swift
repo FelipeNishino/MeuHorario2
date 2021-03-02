@@ -43,8 +43,6 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     
     private var aulas = [Horario]()
     
-//    private let cursos = ["BCC", "BSI", "TADS"]
-//    private let semestres = ["primeiro", "segundo", "terceiro", "quarto", "quinto", "sexto"]
     private var tableCategory : ContentType = .courses
     
     override func viewDidLoad() {
@@ -74,6 +72,8 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
             horariosCategorizados = [[],[]]
         }
         self.navigationController?.delegate = self
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
         
         self.view.addSubview(myTableView)
     }
@@ -156,7 +156,6 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchArguments = searchText
-        print("changing search arguments")
         myTableView.reloadData()
     }
 }
