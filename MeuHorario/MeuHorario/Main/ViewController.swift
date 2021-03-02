@@ -40,6 +40,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //
 //                aulas.append(tupla)
 //            }
+                aulas = []
             
                 for dia in set {
                     var tupla : (Int, [(String, String, String, String)])
