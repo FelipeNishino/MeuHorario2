@@ -109,7 +109,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         fetchUtility.loadDataHorario(courseId: UserDefaults.courseId ?? "1") { horariosArray in
             var horarios = [Horario]()
             horariosArray.forEach { horario in
-                if horario.semestre == UserDefaults.semester {
+                let str = UserDefaults.semester
+                var auxStr = str
+                auxStr?.replaceSubrange((str?.firstIndex(of: "S"))!...(str?.index((str?.firstIndex(of: "S"))!, offsetBy: 8))!, with: "Sem ")
+                if horario.semestre == auxStr {
                     horarios.append(horario)
                 }
             }
