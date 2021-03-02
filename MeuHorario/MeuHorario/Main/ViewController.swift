@@ -138,6 +138,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let configButton : UIBarButtonItem = {
             let btn = UIBarButtonItem(image: UIImage(systemName: "wrench.and.screwdriver"), style: .plain, target: self, action: #selector(changeCourse))
             btn.action = #selector(changeCourse)
+            btn.accessibilityLabel = "Alterar Curso e Semestre"
             btn.tintColor = UIColor(named: "cabecalho")
             return btn
         }()
@@ -148,7 +149,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.largeTitleDisplayMode = .always
         
-//        myCollectionView.backgroundColor = UIColor.init(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
         myCollectionView.backgroundColor = UIColor(named: "Fundo")
         self.view.addSubview(myCollectionView)
     }

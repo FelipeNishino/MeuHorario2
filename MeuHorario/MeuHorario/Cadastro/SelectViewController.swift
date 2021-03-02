@@ -14,6 +14,7 @@ enum ContentType : Int {
 
 class SelectViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate {
     
+    //MARK: Vars
     weak var delegate : RegisterViewController?
     var senderIndex : Int?
     private var auxArray = [String]()
@@ -39,11 +40,14 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+
     private var horariosCategorizados = [[(original: String, manip: String)]]()
     
     private var aulas = [Horario]()
     
     private var tableCategory : ContentType = .courses
+    
+    //MARK: ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +82,8 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         self.view.addSubview(myTableView)
     }
     
+    //MARK: ViewWillAppear
+    
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.navigationBar.topItem?.title = self.tableCategory == .courses ? "Cursos" : "Semestres"
@@ -90,19 +96,36 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         }
         else {
             fetchUtility.loadDataHorario(courseId: delegate?.chosenCourse?.id ?? "1") { horariosArray in
+                
                 var auxSet = Set<String>()
                 horariosArray.forEach { horario in
                     auxSet.insert(horario.semestre)
                 }
-                self.horarios = auxSet.compactMap({$0}).sorted()
+                self.horarios = auxSet.compactMap({$0}).sorted(by: {
+                    (n1:String, n2:String) -> Bool in {
+                        if (n1.hasPrefix("10") && n2.hasPrefix("10")) || (!n1.hasPrefix("10") && !n2.hasPrefix("10")) {
+                            return n1 < n2
+                        }
+                        else if n1.hasPrefix("10"){
+                            return false
+                        }
+                        else {
+                            return true
+                        }
+                    }()
+                })
+                
             }
         }
     }
     
+    //MARK: CellSize
     override func viewWillLayoutSubviews() {
         myTableView.frame = CGRect(x: self.view.safeAreaInsets.left, y: self.view.frame.minY , width: self.view.frame.width - 2 * self.view.safeAreaInsets.right, height: self.view.frame.height)
     }
-    
+
+    //MARK: NumberofSections
+
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableCategory != .courses {
             hasBothPeriods = horarios.contains(where: {$0.localizedCaseInsensitiveContains("Manhã")}) && horarios.contains(where: {$0.localizedCaseInsensitiveContains("Noite")})
@@ -140,10 +163,12 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         }
         return 1
     }
+    //MARK: Headers
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // TODO: Colocar o header certo para quando só existe um período
         return tableCategory == .periods ? (section == 0 ? "Manhã" : "Noite") : ""
     }
+    //MARK: NumberofRows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableCategory != .courses {
             return hasBothPeriods ? horariosCategorizados[(section == 0 ? 0 : 1)].count : horarios.count
@@ -152,7 +177,7 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         
         return filteredCourses.count
     }
-    
+    //MARK: Cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "SelectionTableCell", for: indexPath)
         if tableCategory == .periods {
@@ -178,6 +203,7 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         return myCell
     }
     
+    //MARK: didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableCategory == .courses {
             let selectedValue = tableView.cellForRow(at: indexPath)?.textLabel?.text
@@ -193,6 +219,7 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK: SearchBar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchArguments = searchText
         myTableView.reloadData()

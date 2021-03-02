@@ -33,7 +33,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         label.text = "Qual o seu curso?"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 22)
-        //        label.textColor = UIColor(withHex: 0x004687)
+        label.accessibilityLabel = "Qual o seu curso? Insira o curso o qual você quer ver a grade horária. Essa informação pode ser alterada depois."
         label.textColor = UIColor(named: "Cabecalho")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -42,9 +42,10 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     private let descLbl : UILabel = {
         let label = UILabel()
         label.text = "Insira o curso o qual você quer ver a grade horária.\nEssa informação pode ser alterada depois."
+        label.isAccessibilityElement = false
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 18)
+        label.font = .systemFont(ofSize: 14)
         //        label.textColor = UIColor(withHex: 0xc0c0c0)
         label.textColor = UIColor(named: "CizaTexto")
         label.translatesAutoresizingMaskIntoConstraints = false
