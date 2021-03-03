@@ -13,6 +13,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     private var myCollectionView : UICollectionView!
     
+    //MARK: AulasDidSet
     private var aulasFull = [Horario](){
         didSet{
             
@@ -144,10 +145,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return btn
         }()
         
-        self.navigationItem.title = "Meu curso"
+        self.navigationItem.title = UserDefaults.courseName
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.rightBarButtonItem = configButton
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationItem.largeTitleDisplayMode = .always
         
         myCollectionView.backgroundColor = UIColor(named: "Fundo")
