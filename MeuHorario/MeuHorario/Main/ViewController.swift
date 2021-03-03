@@ -48,7 +48,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     var vetorModelo : [(String, String, String, String)]
 //                    var vetor = [(String, String, String, String)]()
                     
-                    if aulasFull[0].semestre.contains("Manhã") {
+                    if aulasFull[0].semestre.contains("Manhã") || dia == "6"{
                         vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35")]
                     }
                     else {
