@@ -166,7 +166,7 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     //MARK: Headers
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // TODO: Colocar o header certo para quando só existe um período
-        return tableCategory == .periods ? (section == 0 ? "Manhã" : "Noite") : ""
+        return tableCategory == .periods && hasBothPeriods ? (section == 0 ? "Manhã" : "Noite") : ""
     }
     //MARK: NumberofRows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
