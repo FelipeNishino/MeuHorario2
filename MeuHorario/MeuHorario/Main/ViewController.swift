@@ -24,23 +24,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             let set = auxSet.sorted()
                         
-//            for dia in set {
-//                var tupla : (Int, [(String, String, String, String)])
-//                var vetor = [(String, String, String, String)]()
-//
-//                for aula in aulasFull {
-//                    if aula.diaSemana == dia {
-//                        let IO = aula.faixaHoraria.components(separatedBy: " - ")
-//                        var qUpla : (String, String, String, String)
-//                        qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
-//                        vetor.append(qUpla)
-//                    }
-//                }
-//
-//                tupla = (Int(dia)!, vetor)
-//
-//                aulas.append(tupla)
-//            }
                 aulas = []
             
                 for dia in set {
@@ -75,6 +58,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     
                 }
             
+            UserDefaults.arrayTuplas = aulasFull
+            
             DispatchQueue.main.async {
                 self.myCollectionView.reloadData()
             }
@@ -108,18 +93,25 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchUtility.loadDataHorario(courseId: UserDefaults.courseId ?? "1") { horariosArray in
-            var horarios = [Horario]()
-            horariosArray.forEach { horario in
-                let str = UserDefaults.semester
-                var auxStr = str
-                auxStr?.replaceSubrange((str?.firstIndex(of: "S"))!...(str?.index((str?.firstIndex(of: "S"))!, offsetBy: 8))!, with: "Sem ")
-                if horario.semestre == auxStr {
-                    horarios.append(horario)
+        if UserDefaults.arrayTuplas == nil {
+            fetchUtility.loadDataHorario(courseId: UserDefaults.courseId ?? "1") { horariosArray in
+                var horarios = [Horario]()
+                horariosArray.forEach { horario in
+                    let str = UserDefaults.semester
+                    var auxStr = str
+                    auxStr?.replaceSubrange((str?.firstIndex(of: "S"))!...(str?.index((str?.firstIndex(of: "S"))!, offsetBy: 8))!, with: "Sem ")
+                    if horario.semestre == auxStr {
+                        horarios.append(horario)
+                    }
                 }
+                self.aulasFull = horarios
             }
-            self.aulasFull = horarios
         }
+        else {
+            self.aulasFull = UserDefaults.arrayTuplas!
+        }
+        
+        
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: horizontalEdgeInsets / 2, bottom: 10, right: horizontalEdgeInsets / 2)

@@ -13,6 +13,7 @@ extension UserDefaults {
         static let courseId = "courseId"
         static let courseName = "courseName"
         static let semester = "semester"
+        static let arrayTuplas = "arrayTuplas"
     }
     
     class var didAlreadyLaunch : Bool {
@@ -48,6 +49,24 @@ extension UserDefaults {
         }
         set {
             standard.set(newValue, forKey: Keys.semester)
+        }
+    }
+    
+    class var arrayTuplas : [Horario]? {
+        get {
+            if let data = UserDefaults.standard.value(forKey: Keys.arrayTuplas) as? Data {
+                do {
+                    let horarios = try PropertyListDecoder().decode(Array<Horario>.self, from: data)
+                    return horarios
+                }
+                catch {
+                    return nil
+                }
+            }
+            return nil
+        }
+        set {
+            UserDefaults.standard.set(try? PropertyListEncoder().encode(newValue), forKey: Keys.arrayTuplas)
         }
     }
     

@@ -127,6 +127,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         UserDefaults.courseId = chosenCourse?.id
         UserDefaults.courseName = chosenCourse?.nome
         UserDefaults.semester = chosenValues[1]
+        UserDefaults.arrayTuplas = nil
         UserDefaults.didAlreadyLaunch = true
         
         self.navigationController?.navigationBar.isHidden = true
