@@ -14,76 +14,76 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     private var myCollectionView : UICollectionView!
     
     //MARK: AulasDidSet
-//    private var aulasFull = [Horario](){
-//        didSet{
+    private var aulasFull = [Horario](){
+        didSet{
+
+            var auxSet = Set<String>()
+            for aula in aulasFull {
+                auxSet.insert(aula.diaSemana)
+            }
+
+            let set = auxSet.sorted()
+
+//            for dia in set {
+//                var tupla : (Int, [(String, String, String, String)])
+//                var vetor = [(String, String, String, String)]()
 //
-//            var auxSet = Set<String>()
-//            for aula in aulasFull {
-//                auxSet.insert(aula.diaSemana)
-//            }
-//
-//            let set = auxSet.sorted()
-//
-////            for dia in set {
-////                var tupla : (Int, [(String, String, String, String)])
-////                var vetor = [(String, String, String, String)]()
-////
-////                for aula in aulasFull {
-////                    if aula.diaSemana == dia {
-////                        let IO = aula.faixaHoraria.components(separatedBy: " - ")
-////                        var qUpla : (String, String, String, String)
-////                        qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
-////                        vetor.append(qUpla)
-////                    }
-////                }
-////
-////                tupla = (Int(dia)!, vetor)
-////
-////                aulas.append(tupla)
-////            }
-//                aulas = []
-//
-//                for dia in set {
-//                    var tupla : (Int, [(String, String, String, String)])
-//                    var vetorModelo : [(String, String, String, String)]
-////                    var vetor = [(String, String, String, String)]()
-//
-//                    if aulasFull[0].semestre.contains("Manhã") || dia == "6"{
-//                        vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35")]
+//                for aula in aulasFull {
+//                    if aula.diaSemana == dia {
+//                        let IO = aula.faixaHoraria.components(separatedBy: " - ")
+//                        var qUpla : (String, String, String, String)
+//                        qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
+//                        vetor.append(qUpla)
 //                    }
-//                    else {
-//                        vetorModelo = [("", "", "19h10", "20h00"), ("", "", "20h00", "20h50"), ("", "", "21h05", "21h55"), ("", "", "21h55", "22h45")]
-//
-//                    }
-//
-//                    for aula in aulasFull {
-//                        if aula.diaSemana == dia {
-//                            let IO = aula.faixaHoraria.components(separatedBy: " - ")
-//                            var qUpla : (String, String, String, String)
-//                            qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
-//                            for i in (0...3){
-//                                if vetorModelo[i].2 == qUpla.2 {
-//                                    vetorModelo[i] = qUpla
-//                                }
-//                            }
-//                        }
-//                    }
-//
-//                    tupla = (Int(dia)!, vetorModelo)
-//
-//                    aulas.append(tupla)
-//
 //                }
 //
-//            DispatchQueue.main.async {
-//                self.myCollectionView.reloadData()
+//                tupla = (Int(dia)!, vetor)
+//
+//                aulas.append(tupla)
 //            }
-//        }
-//    }
+                aulas = []
+
+                for dia in set {
+                    var tupla : (Int, [(String, String, String, String)])
+                    var vetorModelo : [(String, String, String, String)]
+//                    var vetor = [(String, String, String, String)]()
+
+                    if aulasFull[0].semestre.contains("Manhã") || dia == "6"{
+                        vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35")]
+                    }
+                    else {
+                        vetorModelo = [("", "", "19h10", "20h00"), ("", "", "20h00", "20h50"), ("", "", "21h05", "21h55"), ("", "", "21h55", "22h45")]
+
+                    }
+
+                    for aula in aulasFull {
+                        if aula.diaSemana == dia {
+                            let IO = aula.faixaHoraria.components(separatedBy: " - ")
+                            var qUpla : (String, String, String, String)
+                            qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
+                            for i in (0...3){
+                                if vetorModelo[i].2 == qUpla.2 {
+                                    vetorModelo[i] = qUpla
+                                }
+                            }
+                        }
+                    }
+
+                    tupla = (Int(dia)!, vetorModelo)
+
+                    aulas.append(tupla)
+
+                }
+
+            DispatchQueue.main.async {
+                self.myCollectionView.reloadData()
+            }
+        }
+    }
     
-    private var aulaas = [(Int, [(String, String, String, String)])]()
+    private var aulas = [(Int, [(String, String, String, String)])]()
     
-    private var aulas = [
+    private var aulasTeste = [
                         (1, [("Algoritmos I", "Thiago C.", "19h10", "20h00"), ("Algoritmos I", "Thiago C.", "20h00", "20h50"), ("Algoritmos I", "Thiago C.", "21h05", "21h55"), ("Algoritmos I", "Thiago C.", "21h55", "22h45")]),
                         (2, [("Aplicações Interativas ", "Fábio A.", "21h05", "21h55"),("Aplicações Interativas", "Fábio A.", "21h55", "22h45"),("Aplicações Interativas ", "Fábio A.", "21h05", "21h55"),("Aplicações Interativas", "Fábio A.", "21h55", "22h45")]),
                         (3, [("Programação Web", "Fábio Abenza", "19h10", "20h00"),("Banco de Dados", "Thiago Claro", "20h00", "20h50"), ("Programação Web", "Fábio Abenza", "21h05", "20h55"),("Banco de Dados", "Thiago Claro", "21h55", "22h45")]),
@@ -118,7 +118,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     horarios.append(horario)
                 }
             }
-//            self.aulasFull = horarios
+            self.aulasFull = horarios
         }
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
