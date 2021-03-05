@@ -16,10 +16,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK: AulasDidSet
     private var aulasFull = [Horario](){
         didSet{
-
+            
             var auxSet = Set<String>()
+            var diasShiftados : Set = ["1", "2", "3", "4", "5", "6"]
+            
             for aula in aulasFull {
                 auxSet.insert(aula.diaSemana)
+                if aula.faixaHoraria == "08h - 08h50"{
+                    diasShiftados.remove(aula.diaSemana)
+                }
             }
 
             let set = auxSet.sorted()
@@ -32,7 +37,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //                    var vetor = [(String, String, String, String)]()
 
                     if aulasFull[0].semestre.contains("Manhã") || dia == "6"{
-                        vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35")]
+                        if diasShiftados.contains(dia) {
+                            vetorModelo = [("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35"), ("", "", "11h35", "12h25")]
+                        } else {
+                            vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35")]
+                        }
                     }
                     else {
                         vetorModelo = [("", "", "19h10", "20h00"), ("", "", "20h00", "20h50"), ("", "", "21h05", "21h55"), ("", "", "21h55", "22h45")]
@@ -41,6 +50,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
                     for aula in aulasFull {
                         if aula.diaSemana == dia {
+                            
                             let IO = aula.faixaHoraria.components(separatedBy: " - ")
                             var qUpla : (String, String, String, String)
                             qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
@@ -80,7 +90,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     private var horarios = ["19h10" : "Desenove e dez", "20h00" : "Vinte", "20h50" : "Vinte e cinquenta", "21h05" : "Vinte uma e cinco",
                             "21h55" : "Vinte uma e cinquenta e cinco", "22h45" : "Vinte duas e quarenta e cinco",
                             "08h": "Oito", "08h50" : "Oito e cinquenta", "09h40" : "Nove e quarenta", "09h55" : "Nove e cinquenta e cinco",
-                            "10h45" : "Dez e quarenta e cinco", "11h35" : "Onze e cinquenta e cinco"]
+                            "10h45" : "Dez e quarenta e cinco", "11h35" : "Onze e cinquenta e cinco", "12h25" : "Meio dia e vinte e cinco"]
     
     private let horizontalEdgeInsets : CGFloat = 20
     
@@ -152,7 +162,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let courseName = UserDefaults.courseName?.description ?? String();
         rvc.chosenCourse = Curso(id: UserDefaults.courseId!, nome: courseName)
-        
         
         rvc.chosenValues[1] = UserDefaults.semester!
         self.navigationController?.pushViewController(rvc, animated: true)
