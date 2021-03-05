@@ -154,7 +154,7 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
                             auxStr.append(" ")
                         }
                         auxStr.insert(contentsOf: (word.contains("Sem") ? "Semestre" : word), at:auxStr.endIndex)
-                        print(auxStr)
+                        
                     }
                     auxArray.append(auxStr)
                 }
@@ -208,7 +208,7 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         if tableCategory == .courses {
             let selectedValue = tableView.cellForRow(at: indexPath)?.textLabel?.text
             delegate?.chosenValues[1] = nil
-            //            delegate?.notifyReload(forCell: 1)
+//            delegate?.notifyReload(forCell: 1)
             delegate?.chosenCourse = cursos.first(where: {curso in curso.nome == selectedValue})
         }
         else {

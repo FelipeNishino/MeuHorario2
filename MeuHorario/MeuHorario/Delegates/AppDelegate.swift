@@ -25,25 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Show the window
         window?.makeKeyAndVisible()
         
-//        guard let url = URL(string: "http://sistemasparainternet.azurewebsites.net/nasa/getCursos.php") else {
-//            return false
-//        }
-//
-//        URLSession.shared.dataTask(with: url) { data, resp, err in
-//            if err != nil {
-//                            DispatchQueue.main.async {
-//                                print(err!)
-//                            }
-//                            return
-//                        }
-//
-//                        let aulas = try? JSONDecoder().decode([Personagem].self, from: data!)
-//                        DispatchQueue.main.async {
-//                        }
-//
-//                    }.resume()
-//        }
-        
         return true
     }
     

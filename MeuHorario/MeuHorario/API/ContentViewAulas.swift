@@ -14,7 +14,7 @@ struct ContentViewAulas: View {
     
     func loadDataHorario() {
         guard let url = URL(string: "http://sistemasparainternet.azurewebsites.net/nasa/getHorarios.php?id=9") else {
-            print("Your API end point is Invalid")
+            
             return
         }
         let request = URLRequest(url: url)

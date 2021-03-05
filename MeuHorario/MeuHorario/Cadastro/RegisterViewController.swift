@@ -107,6 +107,9 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         if chosenValues[1] != nil {
             continueBtn.isHidden = false
         }
+        else {
+            continueBtn.isHidden = true
+        }
         if chosenCourse != nil && myTableView.visibleCells.count == 1 {
             myTableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
         }
@@ -131,7 +134,9 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         UserDefaults.didAlreadyLaunch = true
         
         self.navigationController?.navigationBar.isHidden = true
-        self.dismiss(animated: false, completion: { print("dismiss vc") })
+        self.dismiss(animated: false, completion: {
+
+        })
     }
     
     func notifyReload(forCell index: Int) {
