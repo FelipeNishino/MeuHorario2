@@ -15,7 +15,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     private let defaultTableCellHeight : CGFloat = 44.0
     private let myTableView = UITableView()
     
-    var chosenValues : [String?] = [nil, nil]
+    var chosenSemester : String? = nil
     var chosenCourse : Curso? = nil {
         didSet {
             if chosenCourse != nil {
@@ -104,7 +104,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = !UserDefaults.didAlreadyLaunch
         
-        if chosenValues[1] != nil {
+        if chosenSemester != nil {
             continueBtn.isHidden = false
         }
         else {
@@ -129,7 +129,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     @objc func finish() {
         UserDefaults.courseId = chosenCourse?.id
         UserDefaults.courseName = chosenCourse?.nome
-        UserDefaults.semester = chosenValues[1]
+        UserDefaults.semester = chosenSemester
         UserDefaults.arrayTuplas = nil
         UserDefaults.didAlreadyLaunch = true
         
@@ -154,7 +154,7 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "RegisterTableCell", for: indexPath)
-        myCell.textLabel!.text = indexPath.row == 0 ? chosenCourse?.nome ?? "Cursos" : chosenValues[1] ?? "Semestres"
+        myCell.textLabel!.text = indexPath.row == 0 ? chosenCourse?.nome ?? "Cursos" : chosenSemester ?? "Semestres"
         myCell.accessoryType = .disclosureIndicator
         
         myCell.backgroundColor = UIColor(named: "Fundo")

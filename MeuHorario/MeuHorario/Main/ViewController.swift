@@ -163,7 +163,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let courseName = UserDefaults.courseName?.description ?? String();
         rvc.chosenCourse = Curso(id: UserDefaults.courseId!, nome: courseName)
         
-        rvc.chosenValues[1] = UserDefaults.semester!
+        rvc.chosenSemester = UserDefaults.semester!
         self.navigationController?.pushViewController(rvc, animated: true)
     }
     
@@ -231,6 +231,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                         continuo = false
                     }
                 }
+                customCell.isAccessibilityElement = true
                 customCell.accessibilityLabel = "\(aulas[indexPath.row / 5].1[mod - 1].0) com \(aulas[indexPath.row / 5].1[mod - 1].1) das \(aulas[indexPath.row / 5].1[mod - 1].2) até \(aulas[indexPath.row / 5].1[mod - 1 + x].3)"
             }
             

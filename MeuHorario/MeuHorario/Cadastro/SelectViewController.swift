@@ -207,12 +207,12 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableCategory == .courses {
             let selectedValue = tableView.cellForRow(at: indexPath)?.textLabel?.text
-            delegate?.chosenValues[1] = nil
+            delegate?.chosenSemester = nil
 //            delegate?.notifyReload(forCell: 1)
             delegate?.chosenCourse = cursos.first(where: {curso in curso.nome == selectedValue})
         }
         else {
-            delegate?.chosenValues[tableCategory.rawValue] = hasBothPeriods ? horariosCategorizados[indexPath.section][indexPath.row].original : auxArray[indexPath.row]
+            delegate?.chosenSemester = hasBothPeriods ? horariosCategorizados[indexPath.section][indexPath.row].original : auxArray[indexPath.row]
         }
         delegate?.notifyReload(forCell: tableCategory.rawValue)
         delegate?.loadViewIfNeeded()
