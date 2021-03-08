@@ -173,7 +173,15 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
         if tableCategory != .courses {
             return hasBothPeriods ? horariosCategorizados[(section == 0 ? 0 : 1)].count : horarios.count
         }
-        filteredCourses = searchArguments != "" ? cursos.filter({curso in curso.nome.localizedCaseInsensitiveContains(searchArguments)}) : cursos
+        
+        filteredCourses = cursos
+        if searchArguments != ""{
+            filteredCourses = cursos.filter({ curso in
+                curso.nome
+                    .folding(options: .diacriticInsensitive, locale: NSLocale.current)
+                    .localizedCaseInsensitiveContains(searchArguments.folding(options: .diacriticInsensitive, locale: NSLocale.current))
+            })
+        }
         
         return filteredCourses.count
     }
