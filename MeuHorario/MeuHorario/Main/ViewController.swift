@@ -29,44 +29,44 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
             let set = auxSet.sorted()
             
-                aulas = []
+            aulas = []
 
-                for dia in set {
-                    var tupla : (Int, [(String, String, String, String)])
-                    var vetorModelo : [(String, String, String, String)]
+            for dia in set {
+                var tupla : (Int, [(String, String, String, String)])
+                var vetorModelo : [(String, String, String, String)]
 //                    var vetor = [(String, String, String, String)]()
 
-                    if aulasFull[0].semestre.contains("Manhã") || dia == "6"{
-                        if diasShiftados.contains(dia) {
-                            vetorModelo = [("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35"), ("", "", "11h35", "12h25")]
-                        } else {
-                            vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35")]
-                        }
+                if aulasFull[0].semestre.contains("Manhã") || dia == "6"{
+                    if diasShiftados.contains(dia) {
+                        vetorModelo = [("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35"), ("", "", "11h35", "12h25")]
+                    } else {
+                        vetorModelo = [("", "", "08h", "08h50"), ("", "", "08h50", "09h40"), ("", "", "09h55", "10h45"), ("", "", "10h45", "11h35")]
                     }
-                    else {
-                        vetorModelo = [("", "", "19h10", "20h00"), ("", "", "20h00", "20h50"), ("", "", "21h05", "21h55"), ("", "", "21h55", "22h45")]
+                }
+                else {
+                    vetorModelo = [("", "", "19h10", "20h00"), ("", "", "20h00", "20h50"), ("", "", "21h05", "21h55"), ("", "", "21h55", "22h45")]
 
-                    }
+                }
 
-                    for aula in aulasFull {
-                        if aula.diaSemana == dia {
-                            
-                            let IO = aula.faixaHoraria.components(separatedBy: " - ")
-                            var qUpla : (String, String, String, String)
-                            qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
-                            for i in (0...3){
-                                if vetorModelo[i].2 == qUpla.2 {
-                                    vetorModelo[i] = qUpla
-                                }
+                for aula in aulasFull {
+                    if aula.diaSemana == dia {
+                        
+                        let IO = aula.faixaHoraria.components(separatedBy: " - ")
+                        var qUpla : (String, String, String, String)
+                        qUpla = (aula.disciplina, aula.professor, IO[0], IO[1])
+                        for i in (0...3){
+                            if vetorModelo[i].2 == qUpla.2 {
+                                vetorModelo[i] = qUpla
                             }
                         }
                     }
-
-                    tupla = (Int(dia)!, vetorModelo)
-
-                    aulas.append(tupla)
-
                 }
+
+                tupla = (Int(dia)!, vetorModelo)
+
+                aulas.append(tupla)
+
+            }
             
             UserDefaults.arrayTuplas = aulasFull
             
@@ -157,15 +157,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.view.addSubview(myCollectionView)
     }
     
-    @objc func changeCourse() {
-        let rvc = RegisterViewController()
-        
-        let courseName = UserDefaults.courseName?.description ?? String();
-        rvc.chosenCourse = Curso(id: UserDefaults.courseId!, nome: courseName)
-        
-        rvc.chosenSemester = UserDefaults.semester!
-        self.navigationController?.pushViewController(rvc, animated: true)
-    }
+        @objc func changeCourse() {
+            let rvc = RegisterViewController()
+            
+            let courseName = UserDefaults.courseName?.description ?? String();
+            rvc.chosenCourse = Curso(id: UserDefaults.courseId!, nome: courseName)
+            
+            rvc.chosenSemester = UserDefaults.semester!
+            self.navigationController?.pushViewController(rvc, animated: true)
+        }
     
 //    MARK: CellsSize
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

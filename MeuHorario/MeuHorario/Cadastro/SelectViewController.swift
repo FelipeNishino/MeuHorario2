@@ -103,6 +103,7 @@ class SelectViewController : UIViewController, UITableViewDataSource, UITableVie
                 }
                 self.horarios = auxSet.compactMap({$0}).sorted(by: {
                     (n1:String, n2:String) -> Bool in {
+                        print(n1, n2)
                         if (n1.hasPrefix("10") && n2.hasPrefix("10")) || (!n1.hasPrefix("10") && !n2.hasPrefix("10")) {
                             return n1 < n2
                         }

@@ -10,7 +10,6 @@ import UIKit
 class RegisterViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate {
     
     var needsReload : (control : Bool, at: Set<Int>) = (false, [])
-    var shouldReload : Bool = false
     
     private let defaultTableCellHeight : CGFloat = 44.0
     private let myTableView = UITableView()
@@ -23,8 +22,6 @@ class RegisterViewController : UIViewController, UITableViewDataSource, UITableV
             }
         }
     }
-    
-    private var shownCellsCount = 2
     
     private var tableViewHeight : CGFloat = 44.0
     

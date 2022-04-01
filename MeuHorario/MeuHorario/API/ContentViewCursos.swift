@@ -59,15 +59,4 @@ class ContentViewCursos {
         }.resume()
     }
     
-//    var body: some View {
-//
-//
-//        List(results, id: \.id) { item in
-//            VStack(alignment: .leading) {
-//                Text(item.nome)
-//            }
-//        }.onAppear(perform: loadDataCursos)
-//    }
-//
-    
 }
